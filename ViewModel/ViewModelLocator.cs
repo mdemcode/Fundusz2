@@ -14,47 +14,42 @@
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Practices.ServiceLocation;
+using Microsoft.Practices.ServiceLocation; //<- USUN¥Æ REFERENCJÊ! //TODO
+using System.Windows;
 
-namespace Fundusz2.ViewModel
-{
+namespace Fundusz2.ViewModel {
     /// <summary>
     /// This class contains static references to all the view models in the
     /// application and provides an entry point for the bindings.
     /// </summary>
-    public class ViewModelLocator
-    {
+    public class ViewModelLocator {
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
-        public ViewModelLocator()
-        {
-            ServiceLocator.SetLocatorProvider(() => (IServiceLocator)SimpleIoc.Default);
+        public ViewModelLocator() {
+            //ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default); //- powoduje b³êdy!!
 
-            ////if (ViewModelBase.IsInDesignModeStatic)
-            ////{
-            ////    // Create design time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DesignDataService>();
-            ////}
-            ////else
-            ////{
-            ////    // Create run time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DataService>();
-            ////}
-
+            //if (ViewModelBase.IsInDesignModeStatic)
+            //{
+            //    // Create design time view services and models
+            //    SimpleIoc.Default.Register<IDataService, DesignDataService>();
+            //}
+            //else
+            //{
+            //    // Create run time view services and models
+            //    SimpleIoc.Default.Register<IDataService, DataService>();
+            //}
             SimpleIoc.Default.Register<MainViewModel>();
+            MessageBox.Show("Z Locatora");
         }
 
-        public MainViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
+        public MainViewModel Main {
+            get {
+                return SimpleIoc.Default.GetInstance<MainViewModel>();
             }
         }
         
-        public static void Cleanup()
-        {
+        public static void Cleanup() {
             // TODO Clear the ViewModels
         }
     }

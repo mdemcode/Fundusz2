@@ -3,10 +3,104 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Fundusz2"
+        xmlns:dodatki="clr-namespace:Fundusz2.Dodatki"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
         
+        DataContext="{Binding Main, Source={StaticResource Locator}}"
+        
+        Title="FUNDUSZ RODZINNY" Height="500" Width="1000" Left="50" Top="50" Background="#FF4696BB" AllowsTransparency="True" WindowStyle="None">
+
+    
+    <Window.Resources>
+        <dodatki:DecimalToStringWalutaKonwerter x:Key="konwersjaDoStringWaluta" />
+        <dodatki:SumaSkladowychKonwerter x:Key="konwersjaSkladowychDoSumy" />
+        
+    </Window.Resources>
+    
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label VerticalAlignment="Center" Grid.ColumnSpan="4" VerticalContentAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="36" FontFamily="Monotype Corsiva">FUNDUSZ RODZINNY</Label>
+
+        <StackPanel Margin="2" Grid.Row="1" Grid.Column="0">
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF648FEC" Offset="0"/>
+                    <GradientStop Color="#FF98B1E8" Offset="1"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <Label Margin="20" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="24">Gotówka</Label>
+            <Label x:Name="GotowkaLabel" Margin="5" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="30" FontWeight="Bold" Content="{Binding Gotowka, Converter={StaticResource konwersjaDoStringWaluta}}"/>
+        </StackPanel>
+
+        <StackPanel Margin="2" Grid.Row="1" Grid.Column="1">
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF648FEC" Offset="0"/>
+                    <GradientStop Color="#FF98B1E8" Offset="1"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <Label Margin="20" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="24">Pożyczki</Label>
+            <Label x:Name="PozyczkiLabel" Margin="5" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="30" FontWeight="Bold" Content="{Binding Pozyczki, Converter={StaticResource konwersjaDoStringWaluta}}"/>
+        </StackPanel>
+
+        <StackPanel Margin="2" Grid.Row="1" Grid.Column="2">
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF648FEC" Offset="0"/>
+                    <GradientStop Color="#FF98B1E8" Offset="1"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <Label Margin="20" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="24">Lokaty</Label>
+            <Label x:Name="LokatyLabel" Margin="5" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="30" FontWeight="Bold" Content="{Binding Lokaty, Converter={StaticResource konwersjaDoStringWaluta}}"/>
+        </StackPanel>
+
+        <StackPanel Margin="2" Grid.Row="1" Grid.Column="3">
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF648FEC" Offset="0"/>
+                    <GradientStop Color="#FF98B1E8" Offset="1"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <Label Margin="20" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="24">Inwestycje</Label>
+            <Label x:Name="InwestycjeLabel" Margin="5" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="30" FontWeight="Bold" Content="{Binding InneInwestycje, Converter={StaticResource konwersjaDoStringWaluta}}"/>
+        </StackPanel>
+
+        <Label Margin="5" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Center" FontSize="30" FontStyle="Italic">ŁĄCZNE ŚRODKI FUNDUSZU:</Label>
+
+        
+        <Label x:Name="LacznieLabel" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="35" FontWeight="Bold" FontStyle="Italic">
+            <Label.Content>
+                <MultiBinding Mode="OneWay"  Converter="{StaticResource konwersjaSkladowychDoSumy}">
+                    <Binding Path="Gotowka"/>
+                    <Binding Path="Pozyczki"/>
+                    <Binding Path="Lokaty"/>
+                    <Binding Path="InneInwestycje"/>
+                </MultiBinding>
+            </Label.Content>
+        </Label>
+        
+
+        <Button x:Name="TestButton" Grid.Row="4" Grid.Column="0" Height="35" Width="70" Margin="10" Content="Test" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{Binding PolecenieTestowe}" />
+
+        <Button x:Name="ZamknijButton" Grid.Row="4" Grid.Column="3" Height="40" Width="40" Margin="8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}">
+            <Image  Source = "Dodatki/Grafiki/cancel.png"></Image>
+        </Button>
+
     </Grid>
+
 </Window>
+
