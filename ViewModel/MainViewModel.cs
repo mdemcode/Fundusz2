@@ -1,6 +1,9 @@
 using GalaSoft.MvvmLight;
+using Fundusz2.View; //TODO -docelowo tu nie moze byc
 using Fundusz2.Model;
 using System.Windows;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 
 namespace Fundusz2.ViewModel {
     public class MainViewModel : ViewModelBase {
@@ -52,21 +55,31 @@ namespace Fundusz2.ViewModel {
         }
         #endregion
 
+        #region POLECENIA
+        public ICommand PolecenieTestowe {
+            get;
+            private set;
+        }
+        private void Testowe() {
+            TestView test1 = new TestView();
+            test1.ShowDialog();
+        }
+        #endregion
+
         #region KONSTRUKTOR
         public MainViewModel() {
-            if (IsInDesignMode) {
-                Gotowka = 100m;
-                MessageBox.Show("Z mainview");
-            }
-            else {
-                // Wczytaj dane z bazy // TODO
-            }
+            PolecenieTestowe = new RelayCommand(Testowe);
+            var dane = FunduszDAL.Wczytaj();
+            Gotowka = dane.Gotowka;
+            Pozyczki = dane.Pozyczki;
+            Lokaty = dane.Lokaty;
+            InneInwestycje = dane.InneInwestycje;
         }
         #endregion
 
         #region METODY
         private void ZapiszDaneFunduszu() {
-            //TODO
+            //TODO zapisz dane funduszu
         }
         #endregion
     }

@@ -14,7 +14,7 @@
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Practices.ServiceLocation; //<- USUN¥Æ REFERENCJÊ! //TODO
+using Microsoft.Practices.ServiceLocation; //TODO <- USUN¥Æ REFERENCJÊ!
 using System.Windows;
 
 namespace Fundusz2.ViewModel {
@@ -23,9 +23,7 @@ namespace Fundusz2.ViewModel {
     /// application and provides an entry point for the bindings.
     /// </summary>
     public class ViewModelLocator {
-        /// <summary>
-        /// Initializes a new instance of the ViewModelLocator class.
-        /// </summary>
+        public static bool trybProjetowania = true;
         public ViewModelLocator() {
             //ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default); //- powoduje b³êdy!!
 
@@ -40,7 +38,7 @@ namespace Fundusz2.ViewModel {
             //    SimpleIoc.Default.Register<IDataService, DataService>();
             //}
             SimpleIoc.Default.Register<MainViewModel>();
-            MessageBox.Show("Z Locatora");
+            SimpleIoc.Default.Register<TestViewModel>();
         }
 
         public MainViewModel Main {
@@ -48,7 +46,12 @@ namespace Fundusz2.ViewModel {
                 return SimpleIoc.Default.GetInstance<MainViewModel>();
             }
         }
-        
+        public TestViewModel Test1 {
+            get {
+                return SimpleIoc.Default.GetInstance<TestViewModel>();
+            }
+        }
+
         public static void Cleanup() {
             // TODO Clear the ViewModels
         }
