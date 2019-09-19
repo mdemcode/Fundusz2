@@ -6,7 +6,7 @@
         xmlns:dodatki="clr-namespace:Fundusz2.Dodatki"
         mc:Ignorable="d"
         
-        DataContext="{Binding Main, Source={StaticResource Locator}}"
+        DataContext="{Binding MainVM, Source={StaticResource Locator}}"
         
         Title="FUNDUSZ RODZINNY" Height="500" Width="1000" Left="50" Top="50" Background="#FF4696BB" AllowsTransparency="True" WindowStyle="None">
 

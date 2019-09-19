@@ -61,7 +61,7 @@ namespace Fundusz2.ViewModel {
             private set;
         }
         private void Testowe() {
-            TestView test1 = new TestView();
+            var test1 = new UczestnicyView();
             test1.ShowDialog();
         }
         #endregion
@@ -79,7 +79,13 @@ namespace Fundusz2.ViewModel {
 
         #region METODY
         private void ZapiszDaneFunduszu() {
-            //TODO zapisz dane funduszu
+            var noweDane = new Fundusz() {
+                Gotowka = _gotowka,
+                Pozyczki = _pozyczki,
+                Lokaty = _lokaty,
+                InneInwestycje = _inwestycje
+            };
+            FunduszDAL.Zapisz(noweDane);
         }
         #endregion
     }

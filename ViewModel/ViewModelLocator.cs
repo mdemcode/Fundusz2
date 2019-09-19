@@ -39,11 +39,17 @@ namespace Fundusz2.ViewModel {
             //}
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<TestViewModel>();
+            SimpleIoc.Default.Register<UczestnicyViewModel>();
         }
 
-        public MainViewModel Main {
+        public MainViewModel MainVM {
             get {
                 return SimpleIoc.Default.GetInstance<MainViewModel>();
+            }
+        }
+        public UczestnicyViewModel UczestnicyVM {
+            get {
+                return SimpleIoc.Default.GetInstance<UczestnicyViewModel>();
             }
         }
         public TestViewModel Test1 {

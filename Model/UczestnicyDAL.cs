@@ -16,5 +16,8 @@ namespace Fundusz2.Model
             }
             return uczestnicy;
         }
+        public static void Dodaj(Uczestnik nowyUczestnik) {
+
+        }
     }
 }

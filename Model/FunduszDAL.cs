@@ -21,7 +21,7 @@ namespace Fundusz2.Model {
             return dane;
         }
         public static void Zapisz(Fundusz noweDane) {
-
+            //TODO (zapisz dane do bazy)
         }
     }
 }
