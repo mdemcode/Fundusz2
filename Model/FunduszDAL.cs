@@ -7,9 +7,11 @@ using System.Windows;
 
 namespace Fundusz2.Model {
     public static class FunduszDAL {
+        public static bool trybProj = true;
         public static Fundusz Wczytaj() {
             var dane = new Fundusz();
-            if (Properties.Settings.Default._proj) {
+            if (trybProj) { 
+            //if (Properties.Settings.Default._proj) {
                 dane.Gotowka = 100m;
                 dane.Pozyczki = 200m;
                 dane.Lokaty = 300m;

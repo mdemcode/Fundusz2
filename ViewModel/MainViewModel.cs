@@ -1,5 +1,5 @@
 using GalaSoft.MvvmLight;
-using Fundusz2.View; //TODO -docelowo tu nie moze byc
+using Fundusz2.View; //TODO -docelowo tu nie moze byc (ViewModel nie mo¿e nic wiedzieæ o Widoku)
 using Fundusz2.Model;
 using System.Windows;
 using System.Windows.Input;
@@ -8,15 +8,8 @@ using GalaSoft.MvvmLight.Command;
 namespace Fundusz2.ViewModel {
     public class MainViewModel : ViewModelBase {
 
-        #region POLA
+        #region POLA I W£AŒCIWOŒCI
         //private readonly Fundusz daneFunduszu = new Fundusz();
-        private decimal _gotowka;
-        private decimal _pozyczki;
-        private decimal _lokaty;
-        private decimal _inwestycje;
-        #endregion
-
-        #region W£AŒCIWOŒCI
         public decimal Gotowka {
             get {
                 return _gotowka;
@@ -24,8 +17,10 @@ namespace Fundusz2.ViewModel {
             set {
                 _gotowka = value;
                 RaisePropertyChanged(nameof(Gotowka));
+                ZapiszDaneFunduszu();
             }
         }
+        private decimal _gotowka;
         public decimal Pozyczki {
             get {
                 return _pozyczki; ;
@@ -33,8 +28,10 @@ namespace Fundusz2.ViewModel {
             set {
                 _pozyczki = value;
                 RaisePropertyChanged(nameof(Pozyczki));
+                ZapiszDaneFunduszu();
             }
         }
+        private decimal _pozyczki;
         public decimal Lokaty {
             get {
                 return _lokaty; ;
@@ -42,8 +39,10 @@ namespace Fundusz2.ViewModel {
             set {
                 _lokaty = value;
                 RaisePropertyChanged(nameof(Lokaty));
+                ZapiszDaneFunduszu();
             }
         }
+        private decimal _lokaty;
         public decimal InneInwestycje {
             get {
                 return _inwestycje; ;
@@ -51,24 +50,21 @@ namespace Fundusz2.ViewModel {
             set {
                 _inwestycje = value;
                 RaisePropertyChanged(nameof(InneInwestycje));
+                ZapiszDaneFunduszu();
             }
         }
+        private decimal _inwestycje;
         #endregion
 
         #region POLECENIA
-        public ICommand PolecenieTestowe {
-            get;
-            private set;
-        }
-        private void Testowe() {
-            var test1 = new UczestnicyView();
-            test1.ShowDialog();
-        }
+        public ICommand PolecenieOtworzUczestnicy { get; private set; }
+        public ICommand PolecenieTestowe {get; private set; }
         #endregion
 
         #region KONSTRUKTOR
         public MainViewModel() {
             PolecenieTestowe = new RelayCommand(Testowe);
+            PolecenieOtworzUczestnicy = new RelayCommand(OtworzUczestnicy);
             var dane = FunduszDAL.Wczytaj();
             Gotowka = dane.Gotowka;
             Pozyczki = dane.Pozyczki;
@@ -87,6 +83,15 @@ namespace Fundusz2.ViewModel {
             };
             FunduszDAL.Zapisz(noweDane);
         }
+        private void OtworzUczestnicy() {
+            var OknoUczestnicy = new UczestnicyView();
+            OknoUczestnicy.ShowDialog();
+        }
+        private void Testowe() {
+            var test1 = new TestView();
+            test1.ShowDialog();
+        }
+
         #endregion
     }
 }

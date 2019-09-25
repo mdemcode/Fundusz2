@@ -22,17 +22,5 @@ namespace Fundusz2.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool _proj {
-            get {
-                return ((bool)(this["_proj"]));
-            }
-            set {
-                this["_proj"] = value;
-            }
-        }
     }
 }
