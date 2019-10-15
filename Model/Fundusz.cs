@@ -15,5 +15,6 @@ namespace Fundusz2.Model {
         public decimal Pozyczki { get; set; }
         public decimal Lokaty { get; set; }
         public decimal InneInwestycje { get; set; }
+        public int MiesiacNaliczeniaOdsetek { get; set; }
     }
 }

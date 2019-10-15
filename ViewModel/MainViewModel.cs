@@ -9,7 +9,11 @@ namespace Fundusz2.ViewModel {
     public class MainViewModel : ViewModelBase {
 
         #region POLA I W£AŒCIWOŒCI
-        //private readonly Fundusz daneFunduszu = new Fundusz();
+            //WIDOKI
+            private readonly TestView widokTestowy = new TestView();
+            private readonly PozyczkiView widokPozyczki = new PozyczkiView();
+            private readonly UczestnicyView widokUczestnicy = new UczestnicyView();
+            //
         public decimal Gotowka {
             get {
                 return _gotowka;
@@ -57,14 +61,22 @@ namespace Fundusz2.ViewModel {
         #endregion
 
         #region POLECENIA
+        public ICommand PolecenieTestowe { get; private set; }
+        public ICommand PolecenieOtworzPozyczki { get; private set; }
         public ICommand PolecenieOtworzUczestnicy { get; private set; }
-        public ICommand PolecenieTestowe {get; private set; }
         #endregion
 
         #region KONSTRUKTOR
         public MainViewModel() {
-            PolecenieTestowe = new RelayCommand(Testowe);
-            PolecenieOtworzUczestnicy = new RelayCommand(OtworzUczestnicy);
+            //WIDOKI
+            //widokTestowy = new TestView();
+            //widokPozyczki = new PozyczkiView();
+            //widokUczestnicy = new UczestnicyView();
+            // POLECENIA
+            PolecenieTestowe = new RelayCommand(() => widokTestowy.ShowDialog());
+            PolecenieOtworzPozyczki = new RelayCommand(() => widokPozyczki.ShowDialog());
+            PolecenieOtworzUczestnicy = new RelayCommand(() => widokUczestnicy.ShowDialog());
+            //
             var dane = FunduszDAL.Wczytaj();
             Gotowka = dane.Gotowka;
             Pozyczki = dane.Pozyczki;
@@ -91,7 +103,6 @@ namespace Fundusz2.ViewModel {
             var test1 = new TestView();
             test1.ShowDialog();
         }
-
         #endregion
     }
 }

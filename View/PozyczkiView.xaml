@@ -4,13 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:z="clr-namespace:Fundusz2.Zachowania"
         
         DataContext="{Binding PozyczkiVM, Source={StaticResource Locator}}"
         
-        Title="POZYCZKI" Height="500" Width="1000" Left="50" Top="50" Background="#FF4696BB" AllowsTransparency="True" WindowStyle="None">
+        Title="POZYCZKI" Height="500" Width="1000" Left="50" Top="50" 
+        Background="#FF4696BB" AllowsTransparency="True" 
+        BorderBrush="Aqua" BorderThickness="2"
+        WindowStyle="None">
 
     <Window.Resources></Window.Resources>
-
+    
+    <i:Interaction.Behaviors>
+        <z:ZamknijOkno x:Name="zamknijOkno" Przycisk="{Binding ElementName=ButtonZamknij}" />
+    </i:Interaction.Behaviors>
+    
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -61,7 +70,7 @@
 
         <Button x:Name="TestButton" Grid.Row="4" Grid.Column="0" Height="35" Width="70" Margin="10" Content="Test" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{Binding PolecenieTestowe}" />
 
-        <Button x:Name="ZamknijButton" Grid.Row="4" Grid.Column="3" Height="40" Width="40" Margin="8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="ZamknijButton_Click">
+        <Button x:Name="ButtonZamknij" Grid.Row="4" Grid.Column="3" Height="40" Width="40" Margin="8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="ZamknijButton_Click">
             <Image Source = "..\Dodatki\Grafiki\cancel.png"></Image>
         </Button>
 

@@ -12,15 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Fundusz2.View
-{
-    /// <summary>
-    /// Interaction logic for UczestnicyView.xaml
-    /// </summary>
-    public partial class UczestnicyView : Window
-    {
-        public UczestnicyView()
-        {
+namespace Fundusz2.View {
+    public partial class UczestnicyView : Window {
+        public UczestnicyView() {
             InitializeComponent();
         }
 

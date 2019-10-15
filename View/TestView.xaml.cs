@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace Fundusz2.View
 {
@@ -7,9 +8,12 @@ namespace Fundusz2.View
             InitializeComponent();
         }
 
-        private void ZamknijButton_Click(object sender, RoutedEventArgs e)
+        private void TestButton1_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            //todo do usuniecia
+            string nazwa = "Fundusz2.View.UczestnicyView"; //MUSI BYĆ PEŁNA ŚCIEŻKA!
+            var strona = (Window)Activator.CreateInstance(Type.GetType(nazwa));
+            strona.ShowDialog();
         }
     }
 }
