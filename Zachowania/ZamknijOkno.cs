@@ -59,8 +59,8 @@ namespace Fundusz2.Zachowania {
         }
         private static void PrzyciskOtwierania(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             var parametr = "Fundusz2.View." + (d as OtworzOkno).Parametr;
-            // LUB //
-            var opis = "Fundusz2.View." + (d as OtworzOkno).Przycisk.Tag.ToString();
+            // LUB
+            //var opis = "Fundusz2.View." + (d as OtworzOkno).Przycisk.Tag.ToString();
             var okno = (Window)Activator.CreateInstance(Type.GetType(parametr)); //opis lub parametr
             void button_Click(object sender, RoutedEventArgs _e) {
                 okno.ShowDialog();
