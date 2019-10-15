@@ -35,12 +35,24 @@ namespace Fundusz2.Zachowania {
     }
 
     public class OtworzOkno : Behavior<Window> {
+        public Button Przycisk { get; set; }
+        protected override void OnAttached() {
+            if (Przycisk != null) Przycisk.Click += Przycisk_Click;
+        }
+        private void Przycisk_Click(object sender, RoutedEventArgs e) {
+            var opis = "Fundusz2.View." + Przycisk.Tag.ToString();
+            var okno = (Window)Activator.CreateInstance(Type.GetType(opis));
+            okno.ShowDialog();
+        }
+    }
+
+    public class OtworzOkno1 : Behavior<Window> {
 
         public static readonly DependencyProperty Przycisk1Property =
             DependencyProperty.Register(
                 "Przycisk1",
                 typeof(Button),
-                typeof(OtworzOkno),
+                typeof(OtworzOkno1),
                 new PropertyMetadata(null, PrzyciskOtwierania)
             );
         public Button Przycisk1 {
@@ -52,16 +64,16 @@ namespace Fundusz2.Zachowania {
             DependencyProperty.Register(
                 "Parametr",
                 typeof(string),
-                typeof(OtworzOkno)
+                typeof(OtworzOkno1)
             );
         public string Parametr {
             get { return (string)GetValue(ParametrProperty); }
             set { SetValue(ParametrProperty, value); }
         }
         private static void PrzyciskOtwierania(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-            var parametr = "Fundusz2.View." + (d as OtworzOkno).Parametr;
+            var parametr = "Fundusz2.View." + (d as OtworzOkno1).Parametr;
             // LUB //
-            var opis = "Fundusz2.View." + (d as OtworzOkno).Przycisk1.Tag.ToString();
+            var opis = "Fundusz2.View." + (d as OtworzOkno1).Przycisk1.Tag.ToString();
 
             var okno = (Window)Activator.CreateInstance(Type.GetType(opis)); //parametr
             //Window okno2 = (d as OtworzOkno).AssociatedObject;
