@@ -1,5 +1,4 @@
 using GalaSoft.MvvmLight;
-using Fundusz2.View; //TODO -docelowo tu nie moze byc (ViewModel nie mo¿e nic wiedzieæ o Widoku)
 using Fundusz2.Model;
 using System.Windows;
 using System.Windows.Input;
@@ -9,11 +8,6 @@ namespace Fundusz2.ViewModel {
     public class MainViewModel : ViewModelBase {
 
         #region POLA I W£AŒCIWOŒCI
-            //WIDOKI
-            private readonly TestView widokTestowy = new TestView();
-            private readonly PozyczkiView widokPozyczki = new PozyczkiView();
-            private readonly UczestnicyView widokUczestnicy = new UczestnicyView();
-            //
         public decimal Gotowka {
             get {
                 return _gotowka;
@@ -61,22 +55,12 @@ namespace Fundusz2.ViewModel {
         #endregion
 
         #region POLECENIA
-        public ICommand PolecenieTestowe { get; private set; }
-        public ICommand PolecenieOtworzPozyczki { get; private set; }
-        public ICommand PolecenieOtworzUczestnicy { get; private set; }
+        // public ICommand PolecenieOtworzUczestnicy { get; private set; } <- przyk³ad polecenia
         #endregion
 
         #region KONSTRUKTOR
         public MainViewModel() {
-            //WIDOKI
-            //widokTestowy = new TestView();
-            //widokPozyczki = new PozyczkiView();
-            //widokUczestnicy = new UczestnicyView();
-            // POLECENIA
-            PolecenieTestowe = new RelayCommand(() => widokTestowy.ShowDialog());
-            PolecenieOtworzPozyczki = new RelayCommand(() => widokPozyczki.ShowDialog());
-            PolecenieOtworzUczestnicy = new RelayCommand(() => widokUczestnicy.ShowDialog());
-            //
+            // PolecenieOtworzUczestnicy = new RelayCommand(() => widokUczestnicy.ShowDialog()); <- jako œci¹ga - przyk³ad polecenia
             var dane = FunduszDAL.Wczytaj();
             Gotowka = dane.Gotowka;
             Pozyczki = dane.Pozyczki;
@@ -95,14 +79,7 @@ namespace Fundusz2.ViewModel {
             };
             FunduszDAL.Zapisz(noweDane);
         }
-        private void OtworzUczestnicy() {
-            var OknoUczestnicy = new UczestnicyView();
-            OknoUczestnicy.ShowDialog();
-        }
-        private void Testowe() {
-            var test1 = new TestView();
-            test1.ShowDialog();
-        }
+
         #endregion
     }
 }

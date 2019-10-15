@@ -21,7 +21,7 @@
     <!--ZACHOWANIA-->
     <i:Interaction.Behaviors>
         <z:ZamknijOkno x:Name="zamknijOkno" Przycisk="{Binding ElementName=ButtonZamknij}" />
-        <z:OtworzOkno x:Name="otwUczestnicy" Przycisk1="{Binding ElementName=ButtonUczestnicy}" Parametr="UczestnicyView"/>
+        <z:OtworzOkno x:Name="otwUczestnicy" Przycisk="{Binding ElementName=ButtonUczestnicy}" Parametr="UczestnicyView"/>
     </i:Interaction.Behaviors>
 
     <!--ZAWARTOŚĆ-->
