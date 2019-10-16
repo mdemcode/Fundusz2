@@ -9,7 +9,8 @@
         
         DataContext="{Binding UczestnicyVM, Source={StaticResource Locator}}"
         
-        Title="UCZESTNICY FUNDUSZU" Height="500" Width="1000" Left="50" Top="50" Background="#FF4696BB" AllowsTransparency="True" WindowStyle="None">
+        Title="UCZESTNICY FUNDUSZU" Height="500" Width="1000" Left="50" Top="50" 
+        Background="#FF4696BB" AllowsTransparency="True" WindowStyle="None">
 
     <Window.Resources></Window.Resources>
 
@@ -40,7 +41,8 @@
                HorizontalContentAlignment="Center" FontSize="36" FontFamily="Monotype Corsiva">UCZESTNICY FUNDUSZU</Label>
 
         <StackPanel Margin="2" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
-            <DataGrid x:Name="listboxUczestnicy" 
+            <DataGrid x:Name="listboxUczestnicy"
+                      AutoGenerateColumns="False"
                       Margin="20" 
                       ItemsSource="{Binding ListaUczestnikow}" 
                       FontSize="16"
@@ -48,8 +50,17 @@
                       RowBackground="{x:Null}"
                       BorderThickness="2"
                       MinRowHeight="35"
-                      RowHeaderWidth="0" 
-                      ColumnHeaderHeight="35"/>
+                      RowHeaderWidth="0"
+                      IsReadOnly="True"
+                      ColumnHeaderHeight="30">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Uczestnik" Binding="{Binding ImieNazwisko}" Width="2*" />
+                    <DataGridTextColumn Header="Data przystąpienia" Binding="{Binding DataPrzystapienia, StringFormat={}{0:MM.yyyy}}" Width="2*" />
+                    <DataGridTextColumn Header="Udział" Binding="{Binding Udzial}" Width="1*" />
+                    <DataGridTextColumn Header="Wkład" Binding="{Binding Wklad}" Width="1*" />
+                    <DataGridTextColumn Header="Telefon/Email" Binding="{Binding EmailTelefon}" Width="3*" />
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
 
         <StackPanel Margin="2" Grid.Row="1" Grid.Column="3">
