@@ -15,7 +15,7 @@
     <Window.Resources>    </Window.Resources>
 
     <i:Interaction.Behaviors>
-        <z:ZamknijOkno x:Name="zamknijOkno" Przycisk="{Binding ElementName=ButtonZamknij}" />
+        <z:Zachowania x:Name="zamknijOkno" Przycisk="{Binding ElementName=ButtonZamknij}" />
     </i:Interaction.Behaviors>
 
     <Grid>

@@ -93,7 +93,7 @@
     <Compile Include="View\UczestnicyView.xaml.cs">
       <DependentUpon>UczestnicyView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Zachowania\ZamknijOkno.cs" />
+    <Compile Include="Zachowania\Zachowania.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
