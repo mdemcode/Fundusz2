@@ -16,6 +16,7 @@ namespace Fundusz2.Model {
                 dane.Pozyczki = 200m;
                 dane.Lokaty = 300m;
                 dane.InneInwestycje = 400m;
+                dane.MiesiacNaliczeniaOdsetek = DateTime.Now.Month;
             }
             else {
                 //TODO dane = (wczytane z bazy)
