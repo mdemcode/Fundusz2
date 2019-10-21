@@ -11,15 +11,15 @@ namespace Fundusz2.Model {
         public static Fundusz Wczytaj() {
             var dane = new Fundusz();
             if (trybProj) { 
-            //if (Properties.Settings.Default._proj) {
-                dane.Gotowka = 100m;
-                dane.Pozyczki = 200m;
-                dane.Lokaty = 300m;
-                dane.InneInwestycje = 400m;
+                dane.Gotowka = 10m;
+                dane.Pozyczki = 20m;
+                dane.Lokaty = 30m;
+                dane.InneInwestycje = 40m;
                 dane.MiesiacNaliczeniaOdsetek = DateTime.Now.Month;
             }
             else {
-                //TODO dane = (wczytane z bazy)
+                var fundusz_ = BazaDanych.Obiekt_Bazy_Danych.FunduszMain;
+                dane = fundusz_.FirstOrDefault();
             }
             return dane;
         }

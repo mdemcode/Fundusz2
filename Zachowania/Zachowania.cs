@@ -19,7 +19,7 @@ namespace Fundusz2.Zachowania {
         private static void PrzyciskZmieniony(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             Window okno = (d as Zachowania).AssociatedObject;
             void button_Click(object sender, RoutedEventArgs _e) {
-                okno.Hide();
+                okno.Close();
                 if (okno is MainWindow) Application.Current.Shutdown();
             }
             if (e.OldValue != null) ((Button)e.OldValue).Click -= button_Click;
