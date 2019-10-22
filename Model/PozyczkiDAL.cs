@@ -9,7 +9,7 @@ namespace Fundusz2.Model {
     public static class PozyczkiDAL {
         public static ObservableCollection<Pozyczka> Wczytaj() {
             var pozyczki = new ObservableCollection<Pozyczka>();
-            if (FunduszDAL.trybProj) {
+            if (BazaDanych.TrybProj) {
                 //if (Properties.Settings.Default._proj) {
                 pozyczki.Add(new Pozyczka { NrPozyczki = "1", PostFix="2019", Pozyczkobiorca=new Uczestnik {ImieNazwisko="MichalD" }, });
             }

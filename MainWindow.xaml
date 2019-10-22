@@ -20,7 +20,7 @@
 
     <!--ZACHOWANIA-->
     <i:Interaction.Behaviors>
-        <z:Zachowania x:Name="zamknijOkno" Przycisk="{Binding ElementName=ButtonZamknij}" />
+        <z:ZamknijOkno x:Name="zamknijOkno" Przycisk="{Binding ElementName=ButtonZamknij}" />
     </i:Interaction.Behaviors>
 
     <!--ZAWARTOŚĆ-->

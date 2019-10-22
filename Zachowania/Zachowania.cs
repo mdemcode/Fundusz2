@@ -4,12 +4,12 @@ using System.Windows.Controls;
 using System.Windows.Interactivity;
 
 namespace Fundusz2.Zachowania {
-    public class Zachowania : Behavior<Window> {
+    public class ZamknijOkno : Behavior<Window> {
         public static readonly DependencyProperty PrzyciskProperty =
             DependencyProperty.Register(
                 "Przycisk",
                 typeof(Button),
-                typeof(Zachowania),
+                typeof(ZamknijOkno),
                 new PropertyMetadata(null, PrzyciskZmieniony)
             );
         public Button Przycisk {
@@ -17,7 +17,7 @@ namespace Fundusz2.Zachowania {
             set { SetValue(PrzyciskProperty, value); }
         }
         private static void PrzyciskZmieniony(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-            Window okno = (d as Zachowania).AssociatedObject;
+            Window okno = (d as ZamknijOkno).AssociatedObject;
             void button_Click(object sender, RoutedEventArgs _e) {
                 okno.Close();
                 if (okno is MainWindow) Application.Current.Shutdown();

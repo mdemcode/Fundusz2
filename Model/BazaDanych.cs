@@ -1,8 +1,15 @@
-﻿namespace Fundusz2.Model {
+﻿using System.Diagnostics;
+
+namespace Fundusz2.Model {
     public sealed class BazaDanych {
         private static BazaFundusz2 obiekt_bazy_danych = null;
         private static readonly object padlock = new object();
-        BazaDanych() {
+        BazaDanych() {} //PUSTY KONSTRUKTOR
+        public static bool TrybProj {
+            get {
+                if (Debugger.IsAttached) return true;
+                else return false;
+            }
         }
         public static BazaFundusz2 Obiekt_Bazy_Danych {
             get {
