@@ -30,15 +30,7 @@ namespace Fundusz2.ViewModel {
 
         #region METODY
         private void DodajUczestnika() {
-            MessageBox.Show("OK");
-            //var nowyUczestnik = new Uczestnik() {
-            //    DataPrzystapienia = DateTime.Now,
-            //    ImieNazwisko = "Jakub Demiańczuk",
-            //    Wklad=4000,
-            //    Udzial=0.16M,
-            //    EmailTelefon="tel. Kuby"
-            //};
-            //UczestnicyDAL.Dodaj(nowyUczestnik);
+            MessageBox.Show("Jeszcze nie gotowe :(");
         }
         #endregion
     }

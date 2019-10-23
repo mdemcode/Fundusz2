@@ -24,4 +24,16 @@ namespace Fundusz2.Dodatki {
             throw new NotImplementedException();
         }
     }
+
+    public class NrPozyczkiKonwerter : IMultiValueConverter {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
+            var nr = values[0].ToString();
+            var postfix = values[1].ToString();
+            return nr + "/" + postfix;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) {
+            throw new NotImplementedException();
+        }
+    }
 }

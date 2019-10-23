@@ -70,7 +70,7 @@
 
 
         <Button x:Name="TestButton" Grid.Row="4" Grid.Column="0" Height="35" Width="70" Margin="10" 
-                Content="DodajTest" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{Binding PolecenieDodajUczestnika}"/>
+                Content="Dodaj Nowego Uczestnika" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{Binding PolecenieDodajUczestnika}"/>
 
         <Button x:Name="ButtonZamknij" Grid.Row="4" Grid.Column="3" Height="40" Width="40" Margin="8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" >
             <Image Source = "..\Dodatki\Grafiki\cancel.png"></Image>
