@@ -44,23 +44,24 @@ namespace Fundusz2.ViewModel {
         #endregion
 
         #region POLECENIA
-        // public ICommand PolecenieOtworzUczestnicy { get; private set; } <- przyk³ad polecenia
+        public ICommand PolecenieTestowe { get; private set; } // <- przyk³ad polecenia
         #endregion
 
         #region KONSTRUKTOR
         public MainViewModel() {
-            // PolecenieOtworzUczestnicy = new RelayCommand(() => widokUczestnicy.ShowDialog()); <- jako œci¹ga - przyk³ad polecenia
-            //var dane = FunduszDAL.Wczytaj();
-            //Gotowka = dane.Gotowka;
-            //Pozyczki = dane.Pozyczki;
-            //Lokaty = dane.Lokaty;
-            //InneInwestycje = dane.InneInwestycje;
+            PolecenieTestowe = new RelayCommand(() => Testowa()); // <- przyk³ad polecenia
         }
         #endregion
 
         #region METODY
         private void ZapiszDaneFunduszu() {
             FunduszDAL.Zapisz(dane);
+        }
+        private void Testowa() {
+            Gotowka = 1m;
+            Pozyczki = 2m;
+            Lokaty = 3m;
+            InneInwestycje = 4m;
         }
         #endregion
     }
