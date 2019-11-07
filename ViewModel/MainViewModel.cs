@@ -8,50 +8,39 @@ namespace Fundusz2.ViewModel {
     public class MainViewModel : ViewModelBase {
 
         #region POLA I W£AŒCIWOŒCI
+        private readonly Fundusz dane = FunduszDAL.Wczytaj();
         public decimal Gotowka {
-            get {
-                return _gotowka;
-            }
+            get => dane.Gotowka;
             set {
-                _gotowka = value;
+                dane.Gotowka = value;
                 RaisePropertyChanged(nameof(Gotowka));
                 ZapiszDaneFunduszu();
             }
         }
-        private decimal _gotowka;
         public decimal Pozyczki {
-            get {
-                return _pozyczki; ;
-            }
+            get => dane.Pozyczki;
             set {
-                _pozyczki = value;
+                dane.Pozyczki = value;
                 RaisePropertyChanged(nameof(Pozyczki));
                 ZapiszDaneFunduszu();
             }
         }
-        private decimal _pozyczki;
         public decimal Lokaty {
-            get {
-                return _lokaty; ;
-            }
+            get => dane.Lokaty;
             set {
-                _lokaty = value;
+                dane.Lokaty = value;
                 RaisePropertyChanged(nameof(Lokaty));
                 ZapiszDaneFunduszu();
             }
         }
-        private decimal _lokaty;
         public decimal InneInwestycje {
-            get {
-                return _inwestycje; ;
-            }
+            get => dane.InneInwestycje;
             set {
-                _inwestycje = value;
+                dane.InneInwestycje = value;
                 RaisePropertyChanged(nameof(InneInwestycje));
                 ZapiszDaneFunduszu();
             }
         }
-        private decimal _inwestycje;
         #endregion
 
         #region POLECENIA
@@ -61,25 +50,18 @@ namespace Fundusz2.ViewModel {
         #region KONSTRUKTOR
         public MainViewModel() {
             // PolecenieOtworzUczestnicy = new RelayCommand(() => widokUczestnicy.ShowDialog()); <- jako œci¹ga - przyk³ad polecenia
-            var dane = FunduszDAL.Wczytaj();
-            Gotowka = dane.Gotowka;
-            Pozyczki = dane.Pozyczki;
-            Lokaty = dane.Lokaty;
-            InneInwestycje = dane.InneInwestycje;
+            //var dane = FunduszDAL.Wczytaj();
+            //Gotowka = dane.Gotowka;
+            //Pozyczki = dane.Pozyczki;
+            //Lokaty = dane.Lokaty;
+            //InneInwestycje = dane.InneInwestycje;
         }
         #endregion
 
         #region METODY
         private void ZapiszDaneFunduszu() {
-            var noweDane = new Fundusz() {
-                Gotowka = _gotowka,
-                Pozyczki = _pozyczki,
-                Lokaty = _lokaty,
-                InneInwestycje = _inwestycje
-            };
-            FunduszDAL.Zapisz(noweDane);
+            FunduszDAL.Zapisz(dane);
         }
-
         #endregion
     }
 }
