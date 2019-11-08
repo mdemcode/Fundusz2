@@ -7,8 +7,9 @@ namespace Fundusz2.Model {
         BazaDanych() {} //PUSTY KONSTRUKTOR
         public static bool TrybProj {
             get {
-                if (Debugger.IsAttached) return true;
-                else return false;
+                return Debugger.IsAttached ? true : false;
+                //if (Debugger.IsAttached) return true;
+                //else return false;
             }
         }
         public static BazaFundusz2 Obiekt_Bazy_Danych {
