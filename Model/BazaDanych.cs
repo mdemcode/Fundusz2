@@ -2,16 +2,9 @@
 
 namespace Fundusz2.Model {
     public sealed class BazaDanych {
-        private static BazaFundusz2 obiekt_bazy_danych = null;
+        public static bool TrybProj => Debugger.IsAttached ? true : false;
         private static readonly object padlock = new object();
-        BazaDanych() {} //PUSTY KONSTRUKTOR
-        public static bool TrybProj {
-            get {
-                return Debugger.IsAttached ? true : false;
-                //if (Debugger.IsAttached) return true;
-                //else return false;
-            }
-        }
+        private static BazaFundusz2 obiekt_bazy_danych = null;
         public static BazaFundusz2 Obiekt_Bazy_Danych {
             get {
                 lock (padlock) {
@@ -22,5 +15,7 @@ namespace Fundusz2.Model {
                 }
             }
         }
+        //
+        BazaDanych() {} //PUSTY KONSTRUKTOR
     }
 }

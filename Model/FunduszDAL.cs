@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Windows;
 
+//todo -> KLASA DO USUNIĘCIA ! <-
+
 namespace Fundusz2.Model {
     public static class FunduszDAL {
         public static Fundusz Wczytaj() {

@@ -3,42 +3,43 @@ using Fundusz2.Model;
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using System.Linq;
 
 namespace Fundusz2.ViewModel {
     public class MainViewModel : ViewModelBase {
 
         #region POLA I W£AŒCIWOŒCI
-        private readonly Fundusz dane = FunduszDAL.Wczytaj();
+        private readonly Fundusz daneFunduszu;
         public decimal Gotowka {
-            get => dane.Gotowka;
+            get => daneFunduszu.Gotowka;
             set {
-                dane.Gotowka = value;
+                daneFunduszu.Gotowka = value;
                 RaisePropertyChanged(nameof(Gotowka));
-                ZapiszDaneFunduszu();
+                Zapisz();
             }
         }
         public decimal Pozyczki {
-            get => dane.Pozyczki;
+            get => daneFunduszu.Pozyczki;
             set {
-                dane.Pozyczki = value;
+                daneFunduszu.Pozyczki = value;
                 RaisePropertyChanged(nameof(Pozyczki));
-                ZapiszDaneFunduszu();
+                Zapisz();
             }
         }
         public decimal Lokaty {
-            get => dane.Lokaty;
+            get => daneFunduszu.Lokaty;
             set {
-                dane.Lokaty = value;
+                daneFunduszu.Lokaty = value;
                 RaisePropertyChanged(nameof(Lokaty));
-                ZapiszDaneFunduszu();
+                Zapisz();
             }
         }
         public decimal InneInwestycje {
-            get => dane.InneInwestycje;
+            get => daneFunduszu.InneInwestycje;
             set {
-                dane.InneInwestycje = value;
+                daneFunduszu.InneInwestycje = value;
                 RaisePropertyChanged(nameof(InneInwestycje));
-                ZapiszDaneFunduszu();
+                Zapisz();
             }
         }
         #endregion
@@ -49,19 +50,26 @@ namespace Fundusz2.ViewModel {
 
         #region KONSTRUKTOR
         public MainViewModel() {
+            daneFunduszu = Wczytaj();
             PolecenieTestowe = new RelayCommand(() => Testowa()); // <- przyk³ad polecenia
         }
         #endregion
 
         #region METODY
-        private void ZapiszDaneFunduszu() {
-            FunduszDAL.Zapisz(dane);
+        private Fundusz Wczytaj() {
+            return BazaDanych.TrybProj ?
+                   new Fundusz() { Gotowka = 1m, Lokaty = 1m, Pozyczki = 1m, InneInwestycje = 1m }
+                   : BazaDanych.Obiekt_Bazy_Danych.FunduszMain.First();
+        }
+        private void Zapisz() {
+            BazaDanych.Obiekt_Bazy_Danych.SaveChanges();
+            MessageBox.Show($"{daneFunduszu.Gotowka.ToString()}, {daneFunduszu.Pozyczki.ToString()}, {daneFunduszu.Lokaty.ToString()}, {daneFunduszu.InneInwestycje.ToString()}");
         }
         private void Testowa() {
-            Gotowka = 1m;
-            Pozyczki = 2m;
-            Lokaty = 3m;
-            InneInwestycje = 4m;
+            Gotowka = 11m;
+            Pozyczki = 21m;
+            Lokaty = 31m;
+            InneInwestycje = 41m;
         }
         #endregion
     }
