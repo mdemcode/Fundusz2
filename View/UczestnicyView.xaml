@@ -54,11 +54,11 @@
                       IsReadOnly="True"
                       ColumnHeaderHeight="30">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Uczestnik" Binding="{Binding ImieNazwisko}" Width="3*" />
-                    <DataGridTextColumn Header="Data przystąpienia" Binding="{Binding DataPrzystapienia, StringFormat={}{0:MM.yyyy}}" Width="2.2*" />
+                    <DataGridTextColumn Header="Uczestnik" Binding="{Binding Nazwa}" Width="3*" />
+                    <DataGridTextColumn Header="Data przystąpienia" Binding="{Binding DataPrzystapienia}" Width="2.2*" />
                     <DataGridTextColumn Header="Udział" Binding="{Binding Udzial}" Width="1*" />
                     <DataGridTextColumn Header="Wkład" Binding="{Binding Wklad}" Width="1.5*" />
-                    <DataGridTextColumn Header="Telefon/Email" Binding="{Binding EmailTelefon}" Width="3*" />
+                    <DataGridTextColumn Header="Telefon/Email" Binding="{Binding Kontakt}" Width="3*" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
@@ -72,7 +72,9 @@
         <Button x:Name="TestButton" Grid.Row="4" Grid.Column="0" Height="35" Width="70" Margin="10" 
                 Content="Dodaj Nowego Uczestnika" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{Binding PolecenieDodajUczestnika}"/>
 
-        <Button x:Name="ButtonZamknij" Grid.Row="4" Grid.Column="3" Height="40" Width="40" Margin="8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" >
+        <Button x:Name="ButtonZamknij" Grid.Row="4" Grid.Column="3" Height="40" Width="40" 
+                Margin="8" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                Background="{x:Null}" BorderBrush="{x:Null}" >
             <Image Source = "..\Dodatki\Grafiki\cancel.png"></Image>
         </Button>
 

@@ -63,7 +63,7 @@ namespace Fundusz2.ViewModel {
         }
         private void Zapisz() {
             BazaDanych.Obiekt_Bazy_Danych.SaveChanges();
-            MessageBox.Show($"{daneFunduszu.Gotowka.ToString()}, {daneFunduszu.Pozyczki.ToString()}, {daneFunduszu.Lokaty.ToString()}, {daneFunduszu.InneInwestycje.ToString()}");
+            MessageBox.Show($"Dane: {daneFunduszu.Gotowka.ToString()}, {daneFunduszu.Pozyczki.ToString()}, {daneFunduszu.Lokaty.ToString()}, {daneFunduszu.InneInwestycje.ToString()}");
         }
         private void Testowa() {
             Gotowka = 11m;
