@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace Fundusz2.ViewModel {
     public class UczestnicyViewModel : ViewModelBase {
-        public ObservableCollection<UczestnikDTO> ListaUczestnikow = new ObservableCollection<UczestnikDTO>();
+        internal ObservableCollection<UczestnikDTO> ListaUczestnikow = new ObservableCollection<UczestnikDTO>();
         public CollectionViewSource ViewSource { get; private set; }
         public ICommand PolecenieDodajUczestnika { get; private set; }
 
