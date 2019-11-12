@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Fundusz2.Model.DTO {
-    internal class UczestnikDTO {
+    public class UczestnikDTO {
         
         #region DANE Z BAZY
         private readonly Uczestnik uczestnikDB;

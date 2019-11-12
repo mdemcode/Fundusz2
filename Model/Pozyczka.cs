@@ -18,5 +18,9 @@ namespace Fundusz2.Model {
         public decimal KwotaCalkowita { get; set; }
         public decimal PozostaloDoSplaty { get; set; }
         public bool Splacona { get; set; }
+
+        //public override string ToString() {
+        //    return NrPozyczki+PostFix;
+        //}
     }
 }

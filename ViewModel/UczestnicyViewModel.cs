@@ -12,18 +12,16 @@ using System.Windows.Input;
 
 namespace Fundusz2.ViewModel {
     public class UczestnicyViewModel : ViewModelBase {
-        internal ObservableCollection<UczestnikDTO> ListaUczestnikow = new ObservableCollection<UczestnikDTO>();
-        public CollectionViewSource ViewSource { get; private set; }
+        public ObservableCollection<UczestnikDTO> ListaUczestnikow = new ObservableCollection<UczestnikDTO>();
+        public CollectionViewSource ViewSource { get; private set; } = new CollectionViewSource();
         public ICommand PolecenieDodajUczestnika { get; private set; }
 
         #region KONSTRUKTOR
         public UczestnicyViewModel() {
             PolecenieDodajUczestnika = new RelayCommand(() => DodajUczestnika());
-            ViewSource = new CollectionViewSource {
-                Source = ListaUczestnikow
-            };
-            var uczest = UczestnicyDAL.Wczytaj().Select(a => new UczestnikDTO(a));
-            foreach (var item in uczest) {
+            ViewSource.Source = ListaUczestnikow;
+            var listaUczestnikow = BazaDanych.Obiekt_Bazy_Danych.Uczestnicy.ToList();
+            foreach (var item in listaUczestnikow.Select(a=>new UczestnikDTO(a))) {
                 ListaUczestnikow.Add(item);
             }
         }

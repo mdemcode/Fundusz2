@@ -60,7 +60,7 @@
                       IsReadOnly="True"
                       ItemsSource="{Binding ViewSource.View}" 
                       FontSize="16"
-                      Background="{x:Null}"
+                      Background="Aqua"
                       RowBackground="LightBlue"
                       BorderThickness="2"
                       MinRowHeight="35"
@@ -68,15 +68,8 @@
                       ColumnHeaderHeight="35">
                 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nr pożyczki" Width="1*">
-                        <DataGridTextColumn.Binding>
-                            <MultiBinding Mode="OneWay"  Converter="{StaticResource konwersjaNumeruPozyczki}">
-                                <Binding Path="NrPozyczki"/>
-                                <Binding Path="PostFix"/>
-                            </MultiBinding>
-                        </DataGridTextColumn.Binding>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Pozyczkobiorca" Width="1*" Binding="{Binding Pozyczkobiorca.ImieNazwisko}"/>
+                    <DataGridTextColumn Header="Nr pożyczki" Width="1*" Binding="{Binding NumerPozyczki}"/>
+                    <DataGridTextColumn Header="Pozyczkobiorca" Width="1*" Binding="{Binding Pozyczkobiorca}"/>
                 </DataGrid.Columns>
                 
             </DataGrid>
@@ -91,8 +84,17 @@
         <Button x:Name="TestButton" Grid.Row="4" Grid.Column="0" Height="35" Width="70" Margin="10" Content="Test" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{Binding PolecenieTestowe}" />
 
         <Button x:Name="ButtonZamknij" Grid.Row="4" Grid.Column="3" Height="40" Width="40" Margin="8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" >
-            <Image Source = "..\Dodatki\Grafiki\cancel.png"></Image>
+            <Image Source = "..\Dodatki\Grafiki\back.png"></Image>
         </Button>
 
     </Grid>
 </Window>
+<!--
+                        <DataGridTextColumn.Binding>
+                            <MultiBinding Mode="OneWay"  Converter="{StaticResource konwersjaNumeruPozyczki}">
+                                <Binding Path="NrPozyczki"/>
+                                <Binding Path="PostFix"/>
+                            </MultiBinding>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                        -->

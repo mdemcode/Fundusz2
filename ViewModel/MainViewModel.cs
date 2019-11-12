@@ -15,7 +15,7 @@ namespace Fundusz2.ViewModel {
             set {
                 daneFunduszu.Gotowka = value;
                 RaisePropertyChanged(nameof(Gotowka));
-                Zapisz();
+                BazaDanych.ZapiszZmiany();
             }
         }
         public decimal Pozyczki {
@@ -23,7 +23,7 @@ namespace Fundusz2.ViewModel {
             set {
                 daneFunduszu.Pozyczki = value;
                 RaisePropertyChanged(nameof(Pozyczki));
-                Zapisz();
+                BazaDanych.ZapiszZmiany();
             }
         }
         public decimal Lokaty {
@@ -31,7 +31,7 @@ namespace Fundusz2.ViewModel {
             set {
                 daneFunduszu.Lokaty = value;
                 RaisePropertyChanged(nameof(Lokaty));
-                Zapisz();
+                BazaDanych.ZapiszZmiany();
             }
         }
         public decimal InneInwestycje {
@@ -39,7 +39,7 @@ namespace Fundusz2.ViewModel {
             set {
                 daneFunduszu.InneInwestycje = value;
                 RaisePropertyChanged(nameof(InneInwestycje));
-                Zapisz();
+                BazaDanych.ZapiszZmiany();
             }
         }
         #endregion
@@ -61,15 +61,11 @@ namespace Fundusz2.ViewModel {
                    new Fundusz() { Gotowka = 1m, Lokaty = 1m, Pozyczki = 1m, InneInwestycje = 1m }
                    : BazaDanych.Obiekt_Bazy_Danych.FunduszMain.First();
         }
-        private void Zapisz() {
-            BazaDanych.Obiekt_Bazy_Danych.SaveChanges();
-            MessageBox.Show($"Dane: {daneFunduszu.Gotowka.ToString()}, {daneFunduszu.Pozyczki.ToString()}, {daneFunduszu.Lokaty.ToString()}, {daneFunduszu.InneInwestycje.ToString()}");
-        }
         private void Testowa() {
-            Gotowka = 11m;
-            Pozyczki = 21m;
-            Lokaty = 31m;
-            InneInwestycje = 41m;
+            Gotowka = 1m;
+            Pozyczki = 2m;
+            Lokaty = 3m;
+            InneInwestycje = 4m;
         }
         #endregion
     }

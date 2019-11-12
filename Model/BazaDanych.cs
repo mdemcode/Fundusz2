@@ -2,6 +2,7 @@
 
 namespace Fundusz2.Model {
     public sealed class BazaDanych {
+        //
         public static bool TrybProj => Debugger.IsAttached ? true : false;
         private static readonly object padlock = new object();
         private static BazaFundusz2 obiekt_bazy_danych = null;
@@ -17,5 +18,9 @@ namespace Fundusz2.Model {
         }
         //
         BazaDanych() {} //PUSTY KONSTRUKTOR
+        //
+        public static void ZapiszZmiany() {
+            obiekt_bazy_danych.SaveChanges();
+        }
     }
 }
