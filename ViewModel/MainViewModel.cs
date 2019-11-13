@@ -58,14 +58,14 @@ namespace Fundusz2.ViewModel {
         #region METODY
         private Fundusz Wczytaj() {
             return BazaDanych.TrybProj ?
-                   new Fundusz() { Gotowka = 1m, Lokaty = 1m, Pozyczki = 1m, InneInwestycje = 1m }
-                   : BazaDanych.Obiekt_Bazy_Danych.FunduszMain.First();
+                   new Fundusz() { Gotowka = 1.00m, Lokaty = 1.00m, Pozyczki = 1.00m, InneInwestycje = 1.00m }
+                   : BazaDanych.ObiektBazyDanych.FunduszMain.First();
         }
         private void Testowa() {
-            Gotowka = 1m;
-            Pozyczki = 2m;
-            Lokaty = 3m;
-            InneInwestycje = 4m;
+            Gotowka = 10.00m;
+            Pozyczki = 20.00m;
+            Lokaty = 30.00m;
+            InneInwestycje = 40.00m;
         }
         #endregion
     }

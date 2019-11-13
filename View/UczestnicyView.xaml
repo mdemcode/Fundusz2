@@ -53,6 +53,11 @@
                       RowHeaderWidth="0"
                       IsReadOnly="True"
                       ColumnHeaderHeight="30">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="FontWeight" Value="DemiBold"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Uczestnik" Binding="{Binding Nazwa}" Width="3*" />
                     <DataGridTextColumn Header="Data przystąpienia" Binding="{Binding DataPrzystapienia}" Width="2.2*" />

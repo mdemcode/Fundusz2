@@ -5,14 +5,14 @@ namespace Fundusz2.Model {
         //
         public static bool TrybProj => Debugger.IsAttached ? true : false;
         private static readonly object padlock = new object();
-        private static BazaFundusz2 obiekt_bazy_danych = null;
-        public static BazaFundusz2 Obiekt_Bazy_Danych {
+        private static BazaFundusz2 obiektBazyDanych = null;
+        public static BazaFundusz2 ObiektBazyDanych {
             get {
                 lock (padlock) {
-                    if (obiekt_bazy_danych == null) {
-                        obiekt_bazy_danych = new BazaFundusz2();
+                    if (obiektBazyDanych == null) {
+                        obiektBazyDanych = new BazaFundusz2();
                     }
-                    return obiekt_bazy_danych;
+                    return obiektBazyDanych;
                 }
             }
         }
@@ -20,7 +20,7 @@ namespace Fundusz2.Model {
         BazaDanych() {} //PUSTY KONSTRUKTOR
         //
         public static void ZapiszZmiany() {
-            obiekt_bazy_danych.SaveChanges();
+            ObiektBazyDanych.SaveChanges();
         }
     }
 }
