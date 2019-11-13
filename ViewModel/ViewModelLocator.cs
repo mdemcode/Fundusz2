@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace Fundusz2.ViewModel {
     public class ViewModelLocator {
-        public static bool trybProjetowania = true;
+        //public static bool trybProjetowania = true;
         public ViewModelLocator() {
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<TestViewModel>();

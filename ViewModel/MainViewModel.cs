@@ -2,7 +2,7 @@ using GalaSoft.MvvmLight;
 using Fundusz2.Model;
 using System.Windows;
 using System.Windows.Input;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using System.Linq;
 
 namespace Fundusz2.ViewModel {

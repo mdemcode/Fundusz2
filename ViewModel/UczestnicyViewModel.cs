@@ -1,7 +1,7 @@
 ﻿using Fundusz2.Model;
 using Fundusz2.Model.DTO;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
