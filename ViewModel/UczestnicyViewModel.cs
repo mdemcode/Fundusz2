@@ -26,14 +26,18 @@ namespace Fundusz2.ViewModel {
         public UczestnicyViewModel() {
             PolecenieDodajUczestnika = new RelayCommand(() => DodajUczestnika());
             ViewSource.Source = ListaUczestnikow;
-            var listaUczestnikow = BazaDanych.ObiektBazyDanych.Uczestnicy.ToList();
-            foreach (var item in listaUczestnikow.Select(a=>new UczestnikDTO(a))) {
-                ListaUczestnikow.Add(item);
-            }
+            WczytajUczestnikow();
         }
         #endregion
 
         #region METODY
+        private void WczytajUczestnikow() {
+            
+            var listaUczestnikow = BazaDanych.ObiektBazyDanych.Uczestnicy.ToList();
+            foreach (var item in listaUczestnikow.Select(a => new UczestnikDTO(a))) {
+                ListaUczestnikow.Add(item);
+            }
+        }
         private void DodajUczestnika() {
             MessageBox.Show("Jeszcze nie gotowe :(");
         }

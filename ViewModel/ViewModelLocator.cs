@@ -5,14 +5,18 @@ using System.Windows;
 
 namespace Fundusz2.ViewModel {
     public class ViewModelLocator {
-        //public static bool trybProjetowania = true;
+
+        #region KONSTRUKTOR
         public ViewModelLocator() {
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<TestViewModel>();
+            SimpleIoc.Default.Register<TestViewModel>(); //TODO wywalenia
             SimpleIoc.Default.Register<UczestnicyViewModel>();
             SimpleIoc.Default.Register<PozyczkiViewModel>();
+            SimpleIoc.Default.Register<NowaPozyczkaViewModel>();
         }
+        #endregion
 
+        #region PROPERTIES (SimpleIoc)
         public MainViewModel MainVM {
             get {
                 return SimpleIoc.Default.GetInstance<MainViewModel>();
@@ -28,12 +32,20 @@ namespace Fundusz2.ViewModel {
                 return SimpleIoc.Default.GetInstance<PozyczkiViewModel>();
             }
         }
+        public NowaPozyczkaViewModel NowaPozyczkaVM {
+            get {
+                return SimpleIoc.Default.GetInstance<NowaPozyczkaViewModel>();
+            }
+        }
+        
+        //TODO do wywalenia
         public TestViewModel Test1 {
             get {
                 return SimpleIoc.Default.GetInstance<TestViewModel>();
             }
         }
-
+        #endregion
+        
         public static void Cleanup() {
             // TODO Clear the ViewModels
         }

@@ -10,7 +10,7 @@ namespace Fundusz2.Model {
     [Table("Lokaty")]
     public class Lokata {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string NrLokaty { get; set; }
         public string PostFix { get; set; } //NrLokaty+PostFix, np.: 1/LOK/2019
         public string Opis { get; set; }

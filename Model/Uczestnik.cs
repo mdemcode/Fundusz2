@@ -10,7 +10,7 @@ namespace Fundusz2.Model {
     [Table("Uczestnicy")]
     public class Uczestnik {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string ImieNazwisko { get; set; }
         public DateTime DataPrzystapienia { get; set; }
         public decimal Wklad { get; set; }

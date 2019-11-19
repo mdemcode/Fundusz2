@@ -10,7 +10,7 @@ namespace Fundusz2.Model {
     [Table("Pozyczki")]
     public class Pozyczka {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string NrPozyczki { get; set; }
         public string PostFix { get; set; } //NrPozyczki+PostFix, np.: 1/POZ/2019
         public Uczestnik Pozyczkobiorca { get; set; }
@@ -18,6 +18,7 @@ namespace Fundusz2.Model {
         public decimal KwotaCalkowita { get; set; }
         public decimal PozostaloDoSplaty { get; set; }
         public bool Splacona { get; set; }
+        public string Uwagi { get; set; }
 
         //public override string ToString() {
         //    return NrPozyczki+PostFix;

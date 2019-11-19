@@ -28,8 +28,9 @@ namespace Fundusz2.ViewModel {
         public PozyczkiViewModel() {
             ViewSource.Source = ListaPozyczek;
             PolecenieSplacPozyczke = new RelayCommand<object>(o => SplataPozyczki(o), o => PolecenieSplacCanExecute(o));
-            //
-            Odswiez();
+            PolecenieNowaPozyczka = new RelayCommand(() => NowaPozyczka());
+             //
+             Odswiez();
         }
         #endregion
 
@@ -39,7 +40,13 @@ namespace Fundusz2.ViewModel {
         }
         private void SplataPozyczki(object o) {
             var pozyczka = o as PozyczkaDTO;
-            MessageBox.Show(pozyczka.NumerPozyczki);
+            var kwota_splaty = 20m;
+            //
+            pozyczka.KwotaPozostala -= kwota_splaty;
+        }
+        private void NowaPozyczka() {
+            var okno = (Window)Activator.CreateInstance(Type.GetType("Fundusz2.View.NowaPozyczkaView"));
+            okno.ShowDialog();
         }
         private void Odswiez() {
             ListaPozyczek.Clear();

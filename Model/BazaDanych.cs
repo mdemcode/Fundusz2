@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Windows;
 
 namespace Fundusz2.Model {
     public sealed class BazaDanych {
@@ -20,7 +22,14 @@ namespace Fundusz2.Model {
         BazaDanych() {} //PUSTY KONSTRUKTOR
         //
         public static void ZapiszZmiany() {
-            ObiektBazyDanych.SaveChanges();
+            //if (!TrybProj) {
+                try {
+                    ObiektBazyDanych.SaveChanges();
+                }
+                catch (Exception e) {
+                    MessageBox.Show("Błąd zapisu do bazy danych!\n\n" + e.Message);
+                }
+            //}
         }
     }
 }

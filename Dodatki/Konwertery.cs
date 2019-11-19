@@ -25,6 +25,7 @@ namespace Fundusz2.Dodatki {
         }
     }
 
+    //todo -> DO WYWALENIA
     public class NrPozyczkiKonwerter : IMultiValueConverter {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
             var nr = values[0].ToString();

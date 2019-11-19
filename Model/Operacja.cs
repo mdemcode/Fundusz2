@@ -10,7 +10,7 @@ namespace Fundusz2.Model {
     [Table("Operacje")]
     public class Operacja {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime Data { get; set; }
         public TypOperacji Typ { get; set; }
         public string Opis { get; set; }

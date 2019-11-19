@@ -110,60 +110,56 @@
         </Label>
 
         <Button x:Name="ButtonPozyczki" Grid.Row="3" Grid.Column="0" Height="90" Width="240" 
-                Content="Pozyczki" Background="LightSeaGreen" FontSize="24"
+                Content="Pozyczki" Background="LightSeaGreen" FontSize="20"
                 VerticalAlignment="Center" HorizontalAlignment="Center">
             <i:Interaction.Behaviors>
                 <z:OtworzOkno x:Name="otwPozyczki" Parametr="PozyczkiView"/>
             </i:Interaction.Behaviors>
         </Button>
         <Button x:Name="ButtonLokaty" Grid.Row="3" Grid.Column="1" Height="90" Width="240" 
-                Content="Lokaty" Background="LightSeaGreen" FontSize="24" 
+                Content="Lokaty" Background="LightSeaGreen" FontSize="20" 
                 VerticalAlignment="Center" HorizontalAlignment="Center">
             <i:Interaction.Behaviors>
                 <z:OtworzOkno x:Name="otwLokaty" Parametr="LokatyView"/>
             </i:Interaction.Behaviors>
         </Button>
         <Button x:Name="ButtonInwestycje" Grid.Row="3" Grid.Column="2" Height="90" Width="240" 
-                Content="Inwestycje" Background="LightSeaGreen" FontSize="24" 
+                Content="Inwestycje" Background="LightSeaGreen" FontSize="20" 
                 VerticalAlignment="Center" HorizontalAlignment="Center">
             <i:Interaction.Behaviors>
                 <z:OtworzOkno x:Name="otwInwestycje" Parametr="InwestycjeView"/>
             </i:Interaction.Behaviors>
         </Button>
         <Button x:Name="ButtonOperacje" Grid.Row="3" Grid.Column="3" Height="90" Width="240" 
-                Content="Lista operacji" Background="LightSeaGreen" FontSize="24" 
+                Content="Lista operacji" Background="LightSeaGreen" FontSize="20" 
                 VerticalAlignment="Center" HorizontalAlignment="Center">
             <i:Interaction.Behaviors>
                 <z:OtworzOkno x:Name="otwOperacje" Parametr="OperacjeView"/>
             </i:Interaction.Behaviors>
         </Button>
         <Button x:Name="ButtonUczestnicy" Grid.Row="4" Grid.Column="0" Height="90" Width="240" 
-                Content="Uczestnicy" FontSize="24" Background="LightSeaGreen" 
+                Content="Uczestnicy" FontSize="20" Background="LightSeaGreen" 
                 VerticalAlignment="Center" HorizontalAlignment="Center">
             <i:Interaction.Behaviors>
                 <z:OtworzOkno x:Name="otwUczestnicy" Parametr="UczestnicyView"/>
             </i:Interaction.Behaviors>
         </Button>
         <Button x:Name="ButtonTest" Grid.Row="4" Grid.Column="1" Height="90" Width="240" 
-                Content="..." Background="LightSeaGreen" FontSize="24" 
+                Content="..." Background="LightSeaGreen" FontSize="20" 
                 VerticalAlignment="Center" HorizontalAlignment="Center">
             <i:Interaction.Behaviors>
                 <z:OtworzOkno x:Name="otwTest" Parametr="TestView"/>
             </i:Interaction.Behaviors>
         </Button>
-        <Button x:Name="ButtonTest5" Grid.Row="4" Grid.Column="2" Height="90" Width="240" 
-                Content="..." Background="LightSeaGreen" FontSize="24" 
-                VerticalAlignment="Center" HorizontalAlignment="Center">
-            <i:Interaction.Behaviors>
-                <z:OtworzOkno x:Name="otwTest1" Parametr="TestView"/>
-            </i:Interaction.Behaviors>
-        </Button>
-        <Button x:Name="ButtonTestowy" Grid.Row="4" Grid.Column="3" Height="90" Width="240" 
-                Content="Test" Background="LightSeaGreen" FontSize="24" 
+        <Button x:Name="ButtonDoBazy" Grid.Row="4" Grid.Column="2" Height="90" Width="240" 
+                Content="Uzupełnij bazę" Background="LightSeaGreen" FontSize="20" 
                 VerticalAlignment="Center" HorizontalAlignment="Center"
-                Command="{Binding PolecenieTestowe}">
-
-        </Button>
+                Command="{Binding PolecenieUzupelnijBaze}" />
+        
+        <Button x:Name="ButtonTestowy" Grid.Row="4" Grid.Column="3" Height="90" Width="240" 
+                Content="Test" Background="LightSeaGreen" FontSize="20" 
+                VerticalAlignment="Center" HorizontalAlignment="Center"
+                Command="{Binding PolecenieTestowe}"/>
 
         <Button x:Name="ButtonZamknij" Grid.Row="5" Grid.Column="3" Height="40" Width="40" Margin="8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" >
             <Image Source = "Dodatki/Grafiki/close.png"></Image>

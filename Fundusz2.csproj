@@ -34,8 +34,8 @@
     <ProductName>Fundusz Rodzinny</ProductName>
     <PublisherName>Michał Demiańczuk</PublisherName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>9</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -131,10 +131,14 @@
     <Compile Include="Model\DTO\PozyczkaDTO.cs" />
     <Compile Include="Model\DTO\UczestnikDTO.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\NowaPozyczkaViewModel.cs" />
     <Compile Include="ViewModel\PozyczkiViewModel.cs" />
     <Compile Include="ViewModel\TestViewModel.cs" />
     <Compile Include="ViewModel\UczestnicyViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\NowaPozyczkaView.xaml.cs">
+      <DependentUpon>NowaPozyczkaView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PozyczkiView.xaml.cs">
       <DependentUpon>PozyczkiView.xaml</DependentUpon>
     </Compile>
@@ -157,6 +161,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\NowaPozyczkaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\PozyczkiView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -17,7 +17,8 @@
 
     <!--ZASOBY-->
     <Window.Resources>
-        <dodatki:NrPozyczkiKonwerter x:Key="konwersjaNumeruPozyczki" />
+        <dodatki:NrPozyczkiKonwerter x:Key="konwersjaNumeruPozyczki" /> <!--Nie używany-->
+        <dodatki:DecimalToStringWalutaKonwerter x:Key="konwersjaDoStringWaluta" />
     </Window.Resources>
 
     <i:Interaction.Behaviors>
@@ -76,19 +77,31 @@
                     <DataGridTextColumn Header="Pozyczkobiorca" Width="1*" Binding="{Binding Pozyczkobiorca}"/>
                     <DataGridTextColumn Header="Kiedy Wypłacona" Width="0.9*" Binding="{Binding DataWyplaty}"/>
                     <DataGridTextColumn Header="Kwota Pożyczki" Width="1*" Binding="{Binding KwotaCalkowita}"/>
-                    <DataGridTextColumn Header="Pozostało do spłaty" Width="1*" Binding="{Binding KwotaPozostala}"/>
+                    <DataGridTextColumn Header="Pozostało do spłaty" Width="1*" Binding="{Binding KwotaPozostala, Converter={StaticResource konwersjaDoStringWaluta}}"/>
                 </DataGrid.Columns>
                 
             </DataGrid>
         </StackPanel>
 
-        <StackPanel Margin="2" Grid.Row="1" Grid.Column="3">
+        <StackPanel Margin="2" Grid.Row="1" Grid.Column="3" VerticalAlignment="Bottom">
+            <Button x:Name="ButtonSplata" 
+                    Height="35" Width="150" Margin="20"
+                    FontSize="14" Content="Spłata Pożyczki"
+                    HorizontalAlignment="Center" 
+                    Command="{Binding PolecenieSplacPozyczke}" 
+                    CommandParameter="{Binding ElementName=DataGridPozyczki, Path=SelectedItem}"
+            />
+            <Button x:Name="ButtonNowa" 
+                    Height="35" Width="150" Margin="20"
+                    FontSize="14" Content="Nowa Pożyczka"
+                    HorizontalAlignment="Center" 
+                    Command="{Binding PolecenieNowaPozyczka}" 
+            />
 
         </StackPanel>
 
 
 
-        <Button x:Name="TestButton" Grid.Row="4" Grid.Column="0" Height="35" Width="70" Margin="10" Content="Test" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{Binding PolecenieSplacPozyczke}" CommandParameter="{Binding ElementName=DataGridPozyczki, Path=SelectedItem}"/>
 
         <Button x:Name="ButtonZamknij" Grid.Row="4" Grid.Column="3" Height="40" Width="40" Margin="8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" >
             <Image Source = "..\Dodatki\Grafiki\back.png"></Image>
@@ -96,12 +109,3 @@
 
     </Grid>
 </Window>
-<!--
-                        <DataGridTextColumn.Binding>
-                            <MultiBinding Mode="OneWay"  Converter="{StaticResource konwersjaNumeruPozyczki}">
-                                <Binding Path="NrPozyczki"/>
-                                <Binding Path="PostFix"/>
-                            </MultiBinding>
-                        </DataGridTextColumn.Binding>
-                    </DataGridTextColumn>
-                        -->
