@@ -32,11 +32,11 @@ namespace Fundusz2.ViewModel {
 
         #region METODY
         private void WczytajUczestnikow() {
-            
-            var listaUczestnikow = BazaDanych.ObiektBazyDanych.Uczestnicy.ToList();
-            foreach (var item in listaUczestnikow.Select(a => new UczestnikDTO(a))) {
-                ListaUczestnikow.Add(item);
-            }
+            BazaDanych.ObiektBazyDanych.Uczestnicy.ToList().ForEach(x => ListaUczestnikow.Add(new UczestnikDTO(x)));
+            //var listaUczestnikow = BazaDanych.ObiektBazyDanych.Uczestnicy.ToList();
+            //foreach (var item in listaUczestnikow.Select(a => new UczestnikDTO(a))) {
+            //    ListaUczestnikow.Add(item);
+            //}
         }
         private void DodajUczestnika() {
             MessageBox.Show("Jeszcze nie gotowe :(");

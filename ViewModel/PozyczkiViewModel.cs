@@ -52,8 +52,8 @@ namespace Fundusz2.ViewModel {
             ListaPozyczek.Clear();
             var pozyczki = new List<Pozyczka>();
             if (BazaDanych.TrybProj) {
-                pozyczki.Add(new Pozyczka { NrPozyczki = "1", PostFix = "/POZ/2019", Pozyczkobiorca = new Uczestnik { ImieNazwisko = "MichalD", EmailTelefon = "tel1" }, DataWyplaty=DateTime.Today, KwotaCalkowita = 100.00m, PozostaloDoSplaty = 50.00m });
-                pozyczki.Add(new Pozyczka { NrPozyczki = "2", PostFix = "/POZ/2019", Pozyczkobiorca = new Uczestnik { ImieNazwisko = "JakasKryska", EmailTelefon = "tel2" }, DataWyplaty = DateTime.Today, KwotaCalkowita = 200.00m, PozostaloDoSplaty = 150.00m });
+                pozyczki.Add(new Pozyczka { NrPozyczki = 1, PostFix = 2019, Pozyczkobiorca = new Uczestnik { ImieNazwisko = "MichalD", EmailTelefon = "tel1" }, DataWyplaty=DateTime.Today, KwotaCalkowita = 100.00m, PozostaloDoSplaty = 50.00m });
+                pozyczki.Add(new Pozyczka { NrPozyczki = 2, PostFix = 2019, Pozyczkobiorca = new Uczestnik { ImieNazwisko = "JakasKryska", EmailTelefon = "tel2" }, DataWyplaty = DateTime.Today, KwotaCalkowita = 200.00m, PozostaloDoSplaty = 150.00m });
             }
             else {
                 //TODO pozyczki = (wczytane z bazy)

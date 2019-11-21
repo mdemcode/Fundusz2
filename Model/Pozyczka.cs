@@ -11,8 +11,8 @@ namespace Fundusz2.Model {
     public class Pozyczka {
         [Key]
         public Guid Id { get; set; }
-        public string NrPozyczki { get; set; }
-        public string PostFix { get; set; } //NrPozyczki+PostFix, np.: 1/POZ/2019
+        public int? NrPozyczki { get; set; }
+        public int? PostFix { get; set; } // ROK; łącznik dopisywany tylko przy wyswietlaniu //NrPozyczki+PostFix, np.: 1/POZ/2019
         public Uczestnik Pozyczkobiorca { get; set; }
         public DateTime DataWyplaty { get; set; }
         public decimal KwotaCalkowita { get; set; }
