@@ -29,8 +29,8 @@ namespace Fundusz2.ViewModel {
             ViewSource.Source = ListaPozyczek;
             PolecenieSplacPozyczke = new RelayCommand<object>(o => SplataPozyczki(o), o => PolecenieSplacCanExecute(o));
             PolecenieNowaPozyczka = new RelayCommand(() => NowaPozyczka());
-             //
-             Odswiez();
+            //
+            Odswiez();
         }
         #endregion
 
@@ -40,26 +40,19 @@ namespace Fundusz2.ViewModel {
         }
         private void SplataPozyczki(object o) {
             var pozyczka = o as PozyczkaDTO;
-            var kwota_splaty = 20m;
-            //
-            pozyczka.KwotaPozostala -= kwota_splaty;
+            //var kwota_splaty = 20m;
+            ////
+            //pozyczka.KwotaPozostala -= kwota_splaty;
         }
         private void NowaPozyczka() {
             var okno = (Window)Activator.CreateInstance(Type.GetType("Fundusz2.View.NowaPozyczkaView"));
             okno.ShowDialog();
+            Odswiez();
         }
         private void Odswiez() {
             ListaPozyczek.Clear();
-            var pozyczki = new List<Pozyczka>();
-            if (BazaDanych.TrybProj) {
-                pozyczki.Add(new Pozyczka { NrPozyczki = 1, PostFix = 2019, Pozyczkobiorca = new Uczestnik { ImieNazwisko = "MichalD", EmailTelefon = "tel1" }, DataWyplaty=DateTime.Today, KwotaCalkowita = 100.00m, PozostaloDoSplaty = 50.00m });
-                pozyczki.Add(new Pozyczka { NrPozyczki = 2, PostFix = 2019, Pozyczkobiorca = new Uczestnik { ImieNazwisko = "JakasKryska", EmailTelefon = "tel2" }, DataWyplaty = DateTime.Today, KwotaCalkowita = 200.00m, PozostaloDoSplaty = 150.00m });
-            }
-            else {
-                //TODO pozyczki = (wczytane z bazy)
-            }
-            foreach (var item in pozyczki.Select(a => new PozyczkaDTO(a)))
-                ListaPozyczek.Add(item);
+            BazaDanych.ListaPozyczekDB.OrderBy(x => x.NrPozyczki).ToList()
+                                      .ForEach(x => ListaPozyczek.Add(new PozyczkaDTO(x)));
         }
         #endregion
     }

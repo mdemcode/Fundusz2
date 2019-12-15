@@ -22,7 +22,8 @@ namespace Fundusz2.Model.DTO {
         public string DataPrzystapienia => uczestnikDB.DataPrzystapienia.ToShortDateString();
         public string Wklad => uczestnikDB.Wklad.ToString() + " zł";
         public string Udzial => (uczestnikDB.Udzial * 100).ToString() + "%";
-        public string Kontakt => uczestnikDB.EmailTelefon;
+        public string Kontakt => uczestnikDB.Telefon;
+        public string Email => uczestnikDB.Email;
         #endregion
 
         #region OVERRIDES

@@ -16,7 +16,7 @@ namespace Fundusz2.ViewModel {
             set {
                 daneFunduszu.Gotowka = value;
                 RaisePropertyChanged(nameof(Gotowka));
-                BazaDanych.ZapiszZmiany();
+                BazaDanych.ZapiszZmianyWBazie();
             }
         }
         public decimal Pozyczki {
@@ -24,7 +24,7 @@ namespace Fundusz2.ViewModel {
             set {
                 daneFunduszu.Pozyczki = value;
                 RaisePropertyChanged(nameof(Pozyczki));
-                BazaDanych.ZapiszZmiany();
+                BazaDanych.ZapiszZmianyWBazie();
             }
         }
         public decimal Lokaty {
@@ -32,7 +32,7 @@ namespace Fundusz2.ViewModel {
             set {
                 daneFunduszu.Lokaty = value;
                 RaisePropertyChanged(nameof(Lokaty));
-                BazaDanych.ZapiszZmiany();
+                BazaDanych.ZapiszZmianyWBazie();
             }
         }
         public decimal InneInwestycje {
@@ -40,7 +40,7 @@ namespace Fundusz2.ViewModel {
             set {
                 daneFunduszu.InneInwestycje = value;
                 RaisePropertyChanged(nameof(InneInwestycje));
-                BazaDanych.ZapiszZmiany();
+                BazaDanych.ZapiszZmianyWBazie();
             }
         }
         #endregion
@@ -52,13 +52,13 @@ namespace Fundusz2.ViewModel {
 
         #region KONSTRUKTOR
         public MainViewModel() {
-            if (BazaDanych.ObiektBazyDanych.FunduszMain.Any()) {
-                daneFunduszu = BazaDanych.ObiektBazyDanych.FunduszMain.First();
+            if (BazaDanych.FunduszDB != null) {
+                daneFunduszu = BazaDanych.FunduszDB;
             }
             else {
                 daneFunduszu = new Fundusz { Gotowka = 0, Lokaty = 0, Pozyczki = 0, InneInwestycje = 0 };
                 BazaDanych.ObiektBazyDanych.FunduszMain.Add(daneFunduszu);
-                BazaDanych.ZapiszZmiany();
+                BazaDanych.ZapiszIOdswiez(TypDanych.fundusz);
             }
             PolecenieTestowe = new RelayCommand(() => Testowa()); // <- przyk³ad polecenia
             PolecenieUzupelnijBaze = new RelayCommand(() => FillTheBase());
@@ -67,19 +67,22 @@ namespace Fundusz2.ViewModel {
 
         #region METODY
         private void Testowa() {
-            Gotowka = 10.00m;
-            Pozyczki = 20.00m;
-            Lokaty = 30.00m;
-            InneInwestycje = 40.00m;
+            //Gotowka = 10.00m;
+            //Pozyczki = 20.00m;
+            //Lokaty = 30.00m;
+            //InneInwestycje = 40.00m;
+            foreach (var item in BazaDanych.ListaUczestnikowDB) {
+                MessageBox.Show(item.ImieNazwisko);
+            }
+            
         }
         private void FillTheBase() {
-            //var listaUczestnikow = BazaDanych.ObiektBazyDanych.Uczestnicy.ToList();
-            if (BazaDanych.ObiektBazyDanych.Uczestnicy.Any()) return;
+            if (BazaDanych.ListaUczestnikowDB.Any()) return;
             MessageBox.Show("Uzupe³niam bazê danych");
-            BazaDanych.ObiektBazyDanych.Uczestnicy.Add(new Uczestnik { ImieNazwisko="Anna i Micha³ Demiañczuk", DataPrzystapienia=DateTime.Today, EmailTelefon="607783433", Udzial = 0.64m, Wklad = 16000m, Id = Guid.NewGuid() }); //
-            BazaDanych.ObiektBazyDanych.Uczestnicy.Add(new Uczestnik { ImieNazwisko = "Dominik Demiañczuk", DataPrzystapienia = DateTime.Today, EmailTelefon = "tel. Domka", Udzial = 0.20m, Wklad = 5000m, Id = Guid.NewGuid() });
-            BazaDanych.ObiektBazyDanych.Uczestnicy.Add(new Uczestnik { ImieNazwisko = "Jakub Demiañczuk", DataPrzystapienia = DateTime.Today, EmailTelefon = "tel. Kuby", Udzial = 0.16m, Wklad = 4000m, Id = Guid.NewGuid() });
-            BazaDanych.ZapiszZmiany();
+            BazaDanych.ObiektBazyDanych.Uczestnicy.Add(new Uczestnik { ImieNazwisko="Anna i Micha³ Demiañczuk", DataPrzystapienia=DateTime.Today, Telefon="607783433", Udzial = 0.64m, Wklad = 16000m, Id = Guid.NewGuid() }); //
+            BazaDanych.ObiektBazyDanych.Uczestnicy.Add(new Uczestnik { ImieNazwisko = "Dominik Demiañczuk", DataPrzystapienia = DateTime.Today, Telefon = "511911162", Udzial = 0.20m, Wklad = 5000m, Id = Guid.NewGuid() });
+            BazaDanych.ObiektBazyDanych.Uczestnicy.Add(new Uczestnik { ImieNazwisko = "Jakub Demiañczuk", DataPrzystapienia = DateTime.Today, Telefon = "514380888", Udzial = 0.16m, Wklad = 4000m, Id = Guid.NewGuid() });
+            BazaDanych.ZapiszIOdswiez(TypDanych.uczestnicy);
         }
         #endregion
     }

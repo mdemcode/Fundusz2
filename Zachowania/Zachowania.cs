@@ -43,7 +43,7 @@ namespace Fundusz2.Zachowania {
                 okno.ShowDialog();
             }
             catch {
-                MessageBox.Show("Nie mogęo tworzyć tego okna!");
+                MessageBox.Show("Nie mogę otworzyć tego okna!");
             }
         }
     }

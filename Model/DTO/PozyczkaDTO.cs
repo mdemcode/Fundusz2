@@ -29,7 +29,7 @@ namespace Fundusz2.Model.DTO {
             set { 
                 pozyczkaDB.PozostaloDoSplaty = value;
                 RaisePropertyChanged(nameof(KwotaPozostala));
-                BazaDanych.ZapiszZmiany();
+                BazaDanych.ZapiszIOdswiez(TypDanych.pozyczki);
             }
         }
         #endregion

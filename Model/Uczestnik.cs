@@ -15,6 +15,7 @@ namespace Fundusz2.Model {
         public DateTime DataPrzystapienia { get; set; }
         public decimal Wklad { get; set; }
         public decimal Udzial { get; set; }
-        public string EmailTelefon { get; set; }
+        public string Telefon { get; set; }
+        public string Email { get; set; }
     }
 }

@@ -1,35 +1,108 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 
 namespace Fundusz2.Model {
     public sealed class BazaDanych {
         //
-        public static bool TrybProj => Debugger.IsAttached ? true : false;
-        private static readonly object padlock = new object();
+        //public static bool TrybProj => Debugger.IsAttached ? true : false;
+        //
         private static BazaFundusz2 obiektBazyDanych = null;
+        private static Fundusz funduszDB = null;
+        private static List<Uczestnik> listaUczestnikowDB = null;
+        private static List<Pozyczka> listaPozyczekDB = null;
+        //
         public static BazaFundusz2 ObiektBazyDanych {
             get {
+                var padlock = new object();
                 lock (padlock) {
-                    if (obiektBazyDanych == null) {
-                        obiektBazyDanych = new BazaFundusz2();
-                    }
+                    if (obiektBazyDanych == null) obiektBazyDanych = new BazaFundusz2();
                     return obiektBazyDanych;
                 }
             }
         }
+        public static Fundusz FunduszDB {
+            get {
+                var padlock = new object();
+                lock (padlock) {
+                    if (funduszDB == null) funduszDB = ObiektBazyDanych.FunduszMain.First();
+                    return funduszDB;
+                }
+            }
+        }
+        public static List<Uczestnik> ListaUczestnikowDB {
+            get {
+                var padlock = new object();
+                lock (padlock) {
+                    if (listaUczestnikowDB == null) listaUczestnikowDB = ObiektBazyDanych.Uczestnicy.ToList();
+                    return listaUczestnikowDB;
+                }
+            }
+        }
+        public static List<Pozyczka> ListaPozyczekDB {
+            get {
+                var padlock = new object();
+                lock (padlock) {
+                    if (listaPozyczekDB == null) listaPozyczekDB = ObiektBazyDanych.Pozyczki.Include("Pozyczkobiorca").ToList();
+                    return listaPozyczekDB;
+                }
+            }
+        }
+        // <<<<< Aktywacja w App.g.cs w metodzie Main[] >>>>>
+        //public static void Aktywuj() {
+        //    var padlock = new object();
+        //    lock (padlock) {
+        //        if (obiektBazyDanych == null) {
+        //            obiektBazyDanych = new BazaFundusz2();
+        //        }
+        //    }
+        //}
         //
         BazaDanych() {} //PUSTY KONSTRUKTOR
         //
-        public static void ZapiszZmiany() {
-            //if (!TrybProj) {
-                try {
-                    ObiektBazyDanych.SaveChanges();
-                }
-                catch (Exception e) {
-                    MessageBox.Show("Błąd zapisu do bazy danych!\n\n" + e.Message);
-                }
-            //}
+        public static void ZapiszZmianyWBazie() {
+            if (ObiektBazyDanych == null) return;
+            try {
+                ObiektBazyDanych.SaveChanges();
+            }
+            catch (Exception e) {
+                MessageBox.Show("Błąd zapisu do bazy danych!\n\n" + e.Message);
+            }
         }
+        public static void ZapiszIOdswiez(params TypDanych[] ktore_dane_odswiezyc) {
+            if (ObiektBazyDanych == null) {
+                MessageBox.Show("To nie powinno się wydarzyć???");
+                return;
+            }
+            ZapiszZmianyWBazie();
+            foreach (var dane in ktore_dane_odswiezyc) {
+                switch (dane) {
+                    case TypDanych.fundusz:
+                        funduszDB = ObiektBazyDanych.FunduszMain.First();
+                        break;
+                    case TypDanych.uczestnicy:
+                        listaUczestnikowDB = ObiektBazyDanych.Uczestnicy.ToList();
+                        break;
+                    case TypDanych.pozyczki:
+                        listaPozyczekDB = ObiektBazyDanych.Pozyczki.ToList();
+                        break;
+                    case TypDanych.operacje:
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+    public enum TypDanych {
+        fundusz,
+        uczestnicy,
+        pozyczki,
+        operacje,
+        inwestycje
     }
 }
