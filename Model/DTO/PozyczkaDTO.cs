@@ -21,7 +21,7 @@ namespace Fundusz2.Model.DTO {
 
         #region PROPERTIES
         public string NumerPozyczki => pozyczkaDB.NrPozyczki.ToString() + "/POZ/" + pozyczkaDB.PostFix.ToString();
-        public string Pozyczkobiorca => pozyczkaDB.Pozyczkobiorca.ImieNazwisko;
+        public string Pozyczkobiorca => pozyczkaDB.Pozyczkobiorca?.ImieNazwisko;
         public string DataWyplaty => pozyczkaDB.DataWyplaty.ToShortDateString();
         public string KwotaCalkowita => pozyczkaDB.KwotaCalkowita.ToString() + " zł";
         public decimal KwotaPozostala { 

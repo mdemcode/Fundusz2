@@ -38,10 +38,10 @@
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="0.7*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Label VerticalAlignment="Center" 
@@ -70,12 +70,13 @@
                 <DataGrid.ColumnHeaderStyle >
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="FontWeight" Value="DemiBold"/>
+                        <Setter Property="FontSize" Value="14" />
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nr pożyczki" Width="0.7*" Binding="{Binding NumerPozyczki}"/>
-                    <DataGridTextColumn Header="Pozyczkobiorca" Width="1*" Binding="{Binding Pozyczkobiorca}"/>
-                    <DataGridTextColumn Header="Kiedy Wypłacona" Width="0.9*" Binding="{Binding DataWyplaty}"/>
+                    <DataGridTextColumn Header="Pozyczkobiorca" Width="1.5*" Binding="{Binding Pozyczkobiorca}"/>
+                    <DataGridTextColumn Header="Data Wypłaty" Width="0.9*" Binding="{Binding DataWyplaty}"/>
                     <DataGridTextColumn Header="Kwota Pożyczki" Width="1*" Binding="{Binding KwotaCalkowita}"/>
                     <DataGridTextColumn Header="Pozostało do spłaty" Width="1*" Binding="{Binding KwotaPozostala, Converter={StaticResource konwersjaDoStringWaluta}}"/>
                 </DataGrid.Columns>
@@ -85,14 +86,14 @@
 
         <StackPanel Margin="2" Grid.Row="1" Grid.Column="3" VerticalAlignment="Bottom">
             <Button x:Name="ButtonSplata" 
-                    Height="35" Width="150" Margin="20"
+                    Height="35" Width="150" Margin="10"
                     FontSize="14" Content="Spłata Pożyczki"
                     HorizontalAlignment="Center" 
                     Command="{Binding PolecenieSplacPozyczke}" 
                     CommandParameter="{Binding ElementName=DataGridPozyczki, Path=SelectedItem}"
             />
             <Button x:Name="ButtonNowa" 
-                    Height="35" Width="150" Margin="20"
+                    Height="35" Width="150" Margin="10"
                     FontSize="14" Content="Nowa Pożyczka"
                     HorizontalAlignment="Center" 
                     Command="{Binding PolecenieNowaPozyczka}" 

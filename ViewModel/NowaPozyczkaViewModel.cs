@@ -17,7 +17,7 @@ namespace Fundusz2.ViewModel {
         private int nrPozyczki;
         public string NumerPozyczki => nrPozyczki + "/POZ/" + rok;
         public Uczestnik Pozyczkobiorca_ { get; set; }
-        public int Kwota_ { get; set; }
+        public decimal Kwota_ { get; set; }
         public DateTime DataWyplaty_ { get; set; }
         public string Uwagi_ { get; set; }
         //
@@ -40,7 +40,7 @@ namespace Fundusz2.ViewModel {
             return ostatniNumerPozyczki != null ? (int)ostatniNumerPozyczki + 1 : 1;
         }
         private void ZatwierdzPozyczke() {
-            MessageBox.Show($"{NumerPozyczki} \n {Pozyczkobiorca_.ImieNazwisko} \n {Kwota_} \n {DataWyplaty_.ToShortDateString()}");
+            //MessageBox.Show($"{NumerPozyczki} \n {Pozyczkobiorca_.ImieNazwisko} \n {Kwota_} \n {DataWyplaty_.ToShortDateString()}");
             try { 
                 var nowaPozyczka = new Pozyczka {
                     Id = Guid.NewGuid(),
@@ -54,8 +54,7 @@ namespace Fundusz2.ViewModel {
                     Uwagi = Uwagi_
                 };
                 BazaDanych.ObiektBazyDanych.Pozyczki.Add(nowaPozyczka);
-                BazaDanych.ZapiszZmianyWBazie();
-
+                BazaDanych.ZapiszIOdswiez(TypDanych.pozyczki);
             }
             catch {
                 MessageBox.Show("Błąd zapisu do bazy danych!");
