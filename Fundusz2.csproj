@@ -130,6 +130,7 @@
     <Compile Include="Model\BazaDanych.cs" />
     <Compile Include="Model\DTO\PozyczkaDTO.cs" />
     <Compile Include="Model\DTO\UczestnikDTO.cs" />
+    <Compile Include="ViewModel\Komunikator.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\NowaPozyczkaViewModel.cs" />
     <Compile Include="ViewModel\PozyczkiViewModel.cs" />

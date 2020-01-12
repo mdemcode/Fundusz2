@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 
 namespace Fundusz2.Dodatki {
+
     public class DecimalToStringWalutaKonwerter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             return value.ToString() + " zł";

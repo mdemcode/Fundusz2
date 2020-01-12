@@ -68,14 +68,15 @@
             </DataGrid>
         </StackPanel>
 
-        <StackPanel Margin="2" Grid.Row="1" Grid.Column="3">
+        <StackPanel Margin="2" Grid.Row="1" Grid.Column="3"  VerticalAlignment="Bottom">
+            <Button x:Name="TestButton" Grid.Row="4" Grid.Column="0" 
+                    Height="35" Width="150" Margin="10"
+                    Content="Dodaj Nowego" Command="{Binding PolecenieDodajUczestnika}"/>
 
         </StackPanel>
 
 
 
-        <Button x:Name="TestButton" Grid.Row="4" Grid.Column="0" Height="35" Width="70" Margin="10" 
-                Content="Dodaj Nowego Uczestnika" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{Binding PolecenieDodajUczestnika}"/>
 
         <Button x:Name="ButtonZamknij" Grid.Row="4" Grid.Column="3" Height="40" Width="40" 
                 Margin="8" VerticalAlignment="Bottom" HorizontalAlignment="Right" 

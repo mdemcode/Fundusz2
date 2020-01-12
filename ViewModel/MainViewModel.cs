@@ -5,40 +5,41 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using System.Linq;
 using System;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Fundusz2.ViewModel {
     public class MainViewModel : ViewModelBase {
 
         #region POLA I W£AŒCIWOŒCI
-        private readonly Fundusz daneFunduszu;
         public decimal Gotowka {
-            get => daneFunduszu.Gotowka;
+            get => BazaDanych.FunduszDB.Gotowka;
             set {
-                daneFunduszu.Gotowka = value;
+                BazaDanych.FunduszDB.Gotowka = value;
                 RaisePropertyChanged(nameof(Gotowka));
                 BazaDanych.ZapiszZmianyWBazie();
             }
         }
         public decimal Pozyczki {
-            get => daneFunduszu.Pozyczki;
-            set {
-                daneFunduszu.Pozyczki = value;
+            get => BazaDanych.FunduszDB.Pozyczki;
+            set
+            {
+                BazaDanych.FunduszDB.Pozyczki = value;
                 RaisePropertyChanged(nameof(Pozyczki));
                 BazaDanych.ZapiszZmianyWBazie();
             }
         }
         public decimal Lokaty {
-            get => daneFunduszu.Lokaty;
+            get => BazaDanych.FunduszDB.Lokaty;
             set {
-                daneFunduszu.Lokaty = value;
+                BazaDanych.FunduszDB.Lokaty = value;
                 RaisePropertyChanged(nameof(Lokaty));
                 BazaDanych.ZapiszZmianyWBazie();
             }
         }
         public decimal InneInwestycje {
-            get => daneFunduszu.InneInwestycje;
+            get => BazaDanych.FunduszDB.InneInwestycje;
             set {
-                daneFunduszu.InneInwestycje = value;
+                BazaDanych.FunduszDB.InneInwestycje = value;
                 RaisePropertyChanged(nameof(InneInwestycje));
                 BazaDanych.ZapiszZmianyWBazie();
             }
@@ -52,37 +53,46 @@ namespace Fundusz2.ViewModel {
 
         #region KONSTRUKTOR
         public MainViewModel() {
-            if (BazaDanych.FunduszDB != null) {
-                daneFunduszu = BazaDanych.FunduszDB;
-            }
-            else {
-                daneFunduszu = new Fundusz { Gotowka = 0, Lokaty = 0, Pozyczki = 0, InneInwestycje = 0 };
-                BazaDanych.ObiektBazyDanych.FunduszMain.Add(daneFunduszu);
-                BazaDanych.ZapiszIOdswiez(TypDanych.fundusz);
-            }
             PolecenieTestowe = new RelayCommand(() => Testowa()); // <- przyk³ad polecenia
             PolecenieUzupelnijBaze = new RelayCommand(() => FillTheBase());
+            //Messenger:
+            Messenger.Default.Register<Komunikator>(this, WykonajKomunikat);
         }
         #endregion
 
         #region METODY
         private void Testowa() {
-            //Gotowka = 10.00m;
-            //Pozyczki = 20.00m;
-            //Lokaty = 30.00m;
-            //InneInwestycje = 40.00m;
-            foreach (var item in BazaDanych.ListaUczestnikowDB) {
-                MessageBox.Show(item.ImieNazwisko);
-            }
             
         }
+        private void WykonajKomunikat(Komunikator komunikat) {
+            switch (komunikat.Typ) {
+                case Operacja.TypOperacji.FunduszZalozycielski:
+                    break;
+                case Operacja.TypOperacji.SplataPozyczki:
+                    break;
+                case Operacja.TypOperacji.PrzychodZLokaty:
+                    break;
+                case Operacja.TypOperacji.PrzychodInny:
+                    break;
+                case Operacja.TypOperacji.WyplataPozyczki:
+                    Pozyczki += komunikat.Wartosc;
+                    Gotowka -= komunikat.Wartosc;
+                    break;
+                case Operacja.TypOperacji.RozchodNaLokate:
+                    break;
+                case Operacja.TypOperacji.RozchodInny:
+                    break;
+                default:
+                    break;
+            }
+        }
         private void FillTheBase() {
-            if (BazaDanych.ListaUczestnikowDB.Any()) return;
+            if (BazaDanych.ObiektBazyDanych.Uczestnicy.Any()) return;
             MessageBox.Show("Uzupe³niam bazê danych");
             BazaDanych.ObiektBazyDanych.Uczestnicy.Add(new Uczestnik { ImieNazwisko="Anna i Micha³ Demiañczuk", DataPrzystapienia=DateTime.Today, Telefon="607783433", Udzial = 0.64m, Wklad = 16000m, Id = Guid.NewGuid() }); //
             BazaDanych.ObiektBazyDanych.Uczestnicy.Add(new Uczestnik { ImieNazwisko = "Dominik Demiañczuk", DataPrzystapienia = DateTime.Today, Telefon = "511911162", Udzial = 0.20m, Wklad = 5000m, Id = Guid.NewGuid() });
             BazaDanych.ObiektBazyDanych.Uczestnicy.Add(new Uczestnik { ImieNazwisko = "Jakub Demiañczuk", DataPrzystapienia = DateTime.Today, Telefon = "514380888", Udzial = 0.16m, Wklad = 4000m, Id = Guid.NewGuid() });
-            BazaDanych.ZapiszIOdswiez(TypDanych.uczestnicy);
+            BazaDanych.ZapiszZmianyWBazie();
         }
         #endregion
     }

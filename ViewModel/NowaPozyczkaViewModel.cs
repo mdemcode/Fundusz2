@@ -1,5 +1,7 @@
 ﻿using Fundusz2.Model;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +11,13 @@ using System.Windows;
 using System.Windows.Input;
 
 namespace Fundusz2.ViewModel {
-    public class NowaPozyczkaViewModel {
+    public class NowaPozyczkaViewModel : ViewModelBase {
 
         #region POLA I PROPERTIES
         public IList<Uczestnik> Uczestnicy { get; } = new List<Uczestnik>();
-        private readonly int rok;
+        private readonly int aktualnyRok;
         private int nrPozyczki;
-        public string NumerPozyczki => nrPozyczki + "/POZ/" + rok;
+        public string NumerPozyczki => nrPozyczki + "/POZ/" + aktualnyRok;
         public Uczestnik Pozyczkobiorca_ { get; set; }
         public decimal Kwota_ { get; set; }
         public DateTime DataWyplaty_ { get; set; }
@@ -26,7 +28,7 @@ namespace Fundusz2.ViewModel {
 
         #region KONSTRUKTOR
         public NowaPozyczkaViewModel() {
-            rok = DateTime.Now.Year;
+            aktualnyRok = DateTime.Now.Year;
             nrPozyczki = UstawNumerPozyczki();
             PolecenieZatwierdz = new RelayCommand(() => ZatwierdzPozyczke());
             DataWyplaty_ = DateTime.Now;
@@ -36,16 +38,15 @@ namespace Fundusz2.ViewModel {
 
         #region METODY
         private int UstawNumerPozyczki() {
-            var ostatniNumerPozyczki = BazaDanych.ObiektBazyDanych.Pozyczki?.Where(x => x.PostFix == rok)?.Max(x => x.NrPozyczki);
-            return ostatniNumerPozyczki != null ? (int)ostatniNumerPozyczki + 1 : 1;
+            if (!BazaDanych.ObiektBazyDanych.Pozyczki.Any()) return 1;
+            return BazaDanych.ObiektBazyDanych.Pozyczki.Where(x => x.PostFix == aktualnyRok).Max(x => x.NrPozyczki) + 1;
         }
         private void ZatwierdzPozyczke() {
-            //MessageBox.Show($"{NumerPozyczki} \n {Pozyczkobiorca_.ImieNazwisko} \n {Kwota_} \n {DataWyplaty_.ToShortDateString()}");
             try { 
                 var nowaPozyczka = new Pozyczka {
                     Id = Guid.NewGuid(),
                     NrPozyczki = nrPozyczki,
-                    PostFix = rok,
+                    PostFix = aktualnyRok,
                     Pozyczkobiorca = Pozyczkobiorca_,
                     KwotaCalkowita = Kwota_,
                     DataWyplaty = DataWyplaty_,
@@ -54,16 +55,22 @@ namespace Fundusz2.ViewModel {
                     Uwagi = Uwagi_
                 };
                 BazaDanych.ObiektBazyDanych.Pozyczki.Add(nowaPozyczka);
-                BazaDanych.ZapiszIOdswiez(TypDanych.pozyczki);
+                //BazaDanych.FunduszDB.Pozyczki += Kwota_;
+                BazaDanych.ZapiszZmianyWBazie();
+                Messenger.Default.Send<Komunikator, MainViewModel>(new Komunikator { Typ = Operacja.TypOperacji.WyplataPozyczki, Wartosc = Kwota_ });
+                foreach (Window window in Application.Current.Windows) {
+                    if (window.Title == "Nowa Pożyczka") window.Close();
+                }
             }
-            catch {
-                MessageBox.Show("Błąd zapisu do bazy danych!");
+            catch (Exception e) {
+                MessageBox.Show($"Błąd zapisu do bazy danych! \n({e.Message})");
             }
             finally {
                 nrPozyczki++;
                 Kwota_ = 0;
                 Uwagi_ = "";
                 Pozyczkobiorca_ = null;
+                DataWyplaty_ = DateTime.Now;
             }
         }
         #endregion

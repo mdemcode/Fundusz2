@@ -75,12 +75,17 @@
                 </DataGrid.ColumnHeaderStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nr pożyczki" Width="0.7*" Binding="{Binding NumerPozyczki}"/>
-                    <DataGridTextColumn Header="Pozyczkobiorca" Width="1.5*" Binding="{Binding Pozyczkobiorca}"/>
+                    <DataGridTextColumn Header="Pozyczkobiorca" Width="1.5*" Binding="{Binding Pozyczkobiorca}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="ToolTip" Value="{Binding Uwagi}" />
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
                     <DataGridTextColumn Header="Data Wypłaty" Width="0.9*" Binding="{Binding DataWyplaty}"/>
                     <DataGridTextColumn Header="Kwota Pożyczki" Width="1*" Binding="{Binding KwotaCalkowita}"/>
                     <DataGridTextColumn Header="Pozostało do spłaty" Width="1*" Binding="{Binding KwotaPozostala, Converter={StaticResource konwersjaDoStringWaluta}}"/>
                 </DataGrid.Columns>
-                
             </DataGrid>
         </StackPanel>
 

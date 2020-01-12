@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Linq;
 using System.Windows;
 
 namespace Fundusz2.Model {
-    public sealed class BazaDanych {
+    public sealed class BazaDanych { // : ViewModelBase
         //
         //public static bool TrybProj => Debugger.IsAttached ? true : false;
         //
+        #region POLA PRYWATNE
         private static BazaFundusz2 obiektBazyDanych = null;
         private static Fundusz funduszDB = null;
-        private static List<Uczestnik> listaUczestnikowDB = null;
-        private static List<Pozyczka> listaPozyczekDB = null;
+        #endregion
         //
+        #region PROPERTIES (public)
         public static BazaFundusz2 ObiektBazyDanych {
             get {
                 var padlock = new object();
@@ -27,29 +27,20 @@ namespace Fundusz2.Model {
             get {
                 var padlock = new object();
                 lock (padlock) {
-                    if (funduszDB == null) funduszDB = ObiektBazyDanych.FunduszMain.First();
+                    if (funduszDB == null) funduszDB = ObiektBazyDanych.FunduszMain.FirstOrDefault();
                     return funduszDB;
                 }
             }
-        }
-        public static List<Uczestnik> ListaUczestnikowDB {
-            get {
-                var padlock = new object();
-                lock (padlock) {
-                    if (listaUczestnikowDB == null) listaUczestnikowDB = ObiektBazyDanych.Uczestnicy.ToList();
-                    return listaUczestnikowDB;
-                }
+            set {
+                funduszDB = value;
+                ZapiszZmianyWBazie();
             }
         }
-        public static List<Pozyczka> ListaPozyczekDB {
-            get {
-                var padlock = new object();
-                lock (padlock) {
-                    if (listaPozyczekDB == null) listaPozyczekDB = ObiektBazyDanych.Pozyczki.Include("Pozyczkobiorca").ToList();
-                    return listaPozyczekDB;
-                }
-            }
-        }
+        #endregion
+        //
+        BazaDanych() {} //PUSTY KONSTRUKTOR
+        //
+        #region METODY
         // <<<<< Aktywacja w App.g.cs w metodzie Main[] >>>>>
         //public static void Aktywuj() {
         //    var padlock = new object();
@@ -59,50 +50,50 @@ namespace Fundusz2.Model {
         //        }
         //    }
         //}
-        //
-        BazaDanych() {} //PUSTY KONSTRUKTOR
-        //
         public static void ZapiszZmianyWBazie() {
             if (ObiektBazyDanych == null) return;
             try {
-                ObiektBazyDanych.SaveChanges();
+                obiektBazyDanych.SaveChanges();
             }
             catch (Exception e) {
                 MessageBox.Show("Błąd zapisu do bazy danych!\n\n" + e.Message);
             }
         }
-        public static void ZapiszIOdswiez(params TypDanych[] ktore_dane_odswiezyc) {
-            if (ObiektBazyDanych == null) {
-                MessageBox.Show("To nie powinno się wydarzyć???");
-                return;
-            }
-            ZapiszZmianyWBazie();
-            foreach (var dane in ktore_dane_odswiezyc) {
-                switch (dane) {
-                    case TypDanych.fundusz:
-                        funduszDB = ObiektBazyDanych.FunduszMain.First();
-                        break;
-                    case TypDanych.uczestnicy:
-                        listaUczestnikowDB = ObiektBazyDanych.Uczestnicy.ToList();
-                        break;
-                    case TypDanych.pozyczki:
-                        listaPozyczekDB = ObiektBazyDanych.Pozyczki.ToList();
-                        break;
-                    case TypDanych.operacje:
+        //public static void ZapisOdczyt(bool zapis, params TypDanych[] ktore_dane_odswiezyc) {
+        //    //if (ObiektBazyDanych == null) {
+        //    //    MessageBox.Show("To nie powinno się wydarzyć???");
+        //    //    return;
+        //    //}
+        //    if (zapis) ZapiszZmianyWBazie();
+        //    foreach (var dane in ktore_dane_odswiezyc) {
+        //        switch (dane) {
+        //            case TypDanych.fundusz:
+        //                funduszDB = null;
+        //                funduszDB = ObiektBazyDanych.FunduszMain.First();
+        //                break;
+        //            case TypDanych.uczestnicy:
+        //                ListaUczestnikowDB?.Clear();
+        //                listaUczestnikowDB = ObiektBazyDanych.Uczestnicy.ToList();
+        //                break;
+        //            case TypDanych.pozyczki:
+        //                listaPozyczekDB?.Clear();
+        //                listaPozyczekDB = ObiektBazyDanych.Pozyczki.Include("Pozyczkobiorca").ToList();
+        //                break;
+        //            case TypDanych.operacje:
 
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
+        //}
+        #endregion
     }
-
-    public enum TypDanych {
-        fundusz,
-        uczestnicy,
-        pozyczki,
-        operacje,
-        inwestycje
-    }
+    //public enum TypDanych {
+    //    fundusz,
+    //    uczestnicy,
+    //    pozyczki,
+    //    operacje,
+    //    inwestycje
+    //}
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
+﻿using GalaSoft.MvvmLight;
 
 namespace Fundusz2.Model.DTO {
     public class PozyczkaDTO : ViewModelBase {
@@ -24,12 +18,13 @@ namespace Fundusz2.Model.DTO {
         public string Pozyczkobiorca => pozyczkaDB.Pozyczkobiorca?.ImieNazwisko;
         public string DataWyplaty => pozyczkaDB.DataWyplaty.ToShortDateString();
         public string KwotaCalkowita => pozyczkaDB.KwotaCalkowita.ToString() + " zł";
+        public string Uwagi => pozyczkaDB.Uwagi;
         public decimal KwotaPozostala { 
             get => pozyczkaDB.PozostaloDoSplaty;
             set { 
                 pozyczkaDB.PozostaloDoSplaty = value;
                 RaisePropertyChanged(nameof(KwotaPozostala));
-                BazaDanych.ZapiszIOdswiez(TypDanych.pozyczki);
+                BazaDanych.ZapiszZmianyWBazie();
             }
         }
         #endregion

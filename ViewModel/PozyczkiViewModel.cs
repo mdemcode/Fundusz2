@@ -51,7 +51,7 @@ namespace Fundusz2.ViewModel {
         }
         private void Odswiez() {
             ListaPozyczek.Clear();
-            BazaDanych.ListaPozyczekDB.OrderBy(x => x.NrPozyczki).ToList()
+            BazaDanych.ObiektBazyDanych.Pozyczki.Include("Pozyczkobiorca").OrderByDescending(x=>x.PostFix).ThenByDescending(x => x.NrPozyczki).ToList()
                                       .ForEach(x => ListaPozyczek.Add(new PozyczkaDTO(x)));
         }
         #endregion
