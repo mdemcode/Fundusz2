@@ -1,0 +1,13 @@
+﻿<Window x:Class="Fundusz2.StartLogo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Fundusz2"
+        mc:Ignorable="d"
+        Title="StartLogo" Height="500" Width="624" WindowStyle="None" ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" Background="{x:Null}" AllowsTransparency="True" >
+    <Grid>
+        <Image Source="Dodatki/Grafiki/family-finance.jpg" Name="Obraz" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+    </Grid>
+</Window>

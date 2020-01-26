@@ -34,7 +34,7 @@
     <ProductName>Fundusz Rodzinny</ProductName>
     <PublisherName>Michał Demiańczuk</PublisherName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -130,11 +130,15 @@
     <Compile Include="Model\BazaDanych.cs" />
     <Compile Include="Model\DTO\PozyczkaDTO.cs" />
     <Compile Include="Model\DTO\UczestnikDTO.cs" />
+    <Compile Include="StartLogo.xaml.cs">
+      <DependentUpon>StartLogo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\Komunikator.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\NowaPozyczkaViewModel.cs" />
     <Compile Include="ViewModel\PozyczkiViewModel.cs" />
     <Compile Include="ViewModel\TestViewModel.cs" />
+    <Compile Include="ViewModel\Tools1.cs" />
     <Compile Include="ViewModel\UczestnicyViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\NowaPozyczkaView.xaml.cs">
@@ -162,6 +166,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="StartLogo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\NowaPozyczkaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -239,6 +247,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Dodatki\Grafiki\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Dodatki\Grafiki\family-finance.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

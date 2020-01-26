@@ -12,7 +12,14 @@ namespace Fundusz2.ViewModel {
 
         #region POLA I W£AŒCIWOŒCI
         public decimal Gotowka {
-            get => BazaDanych.FunduszDB.Gotowka;
+            get {
+                try {
+                    return BazaDanych.FunduszDB.Gotowka;
+                }
+                catch {
+                    return 0m;
+                }
+            }
             set {
                 BazaDanych.FunduszDB.Gotowka = value;
                 RaisePropertyChanged(nameof(Gotowka));
@@ -20,16 +27,29 @@ namespace Fundusz2.ViewModel {
             }
         }
         public decimal Pozyczki {
-            get => BazaDanych.FunduszDB.Pozyczki;
-            set
-            {
+            get {
+                try {
+                    return BazaDanych.FunduszDB.Pozyczki;
+                }
+                catch {
+                    return 0m;
+                }
+            }
+            set {
                 BazaDanych.FunduszDB.Pozyczki = value;
                 RaisePropertyChanged(nameof(Pozyczki));
                 BazaDanych.ZapiszZmianyWBazie();
             }
         }
         public decimal Lokaty {
-            get => BazaDanych.FunduszDB.Lokaty;
+            get {
+                try {
+                    return BazaDanych.FunduszDB.Lokaty;
+                }
+                catch {
+                    return 0m;
+                }
+            }
             set {
                 BazaDanych.FunduszDB.Lokaty = value;
                 RaisePropertyChanged(nameof(Lokaty));
@@ -37,7 +57,14 @@ namespace Fundusz2.ViewModel {
             }
         }
         public decimal InneInwestycje {
-            get => BazaDanych.FunduszDB.InneInwestycje;
+            get {
+                try {
+                    return BazaDanych.FunduszDB.InneInwestycje;
+                }
+                catch {
+                    return 0m;
+                }
+            }
             set {
                 BazaDanych.FunduszDB.InneInwestycje = value;
                 RaisePropertyChanged(nameof(InneInwestycje));
@@ -47,22 +74,23 @@ namespace Fundusz2.ViewModel {
         #endregion
 
         #region POLECENIA
-        public ICommand PolecenieTestowe { get; private set; } // <- przyk³ad polecenia
+        public ICommand ZamknijOknoComm { get; private set; } // <- przyk³ad polecenia
         public ICommand PolecenieUzupelnijBaze { get; private set; }
         #endregion
 
         #region KONSTRUKTOR
         public MainViewModel() {
-            PolecenieTestowe = new RelayCommand(() => Testowa()); // <- przyk³ad polecenia
+            ZamknijOknoComm = new RelayCommand(() => Zamknij());
             PolecenieUzupelnijBaze = new RelayCommand(() => FillTheBase());
             //Messenger:
             Messenger.Default.Register<Komunikator>(this, WykonajKomunikat);
+            if (!BazaDanych.ObiektBazyDanych.FunduszMain.Any()) MessageBox.Show("B³¹d odczytu z bazy danych");
         }
         #endregion
 
         #region METODY
-        private void Testowa() {
-            
+        private void Zamknij() {
+            Application.Current.Shutdown();
         }
         private void WykonajKomunikat(Komunikator komunikat) {
             switch (komunikat.Typ) {
@@ -87,6 +115,16 @@ namespace Fundusz2.ViewModel {
             }
         }
         private void FillTheBase() {
+            if (!BazaDanych.ObiektBazyDanych.FunduszMain.Any()) {
+                BazaDanych.ObiektBazyDanych.FunduszMain.Add(new Fundusz {
+                    Gotowka = 25000,
+                    InneInwestycje = 0,
+                    Lokaty = 0,
+                    Pozyczki = 0,
+                    MiesiacNaliczeniaOdsetek = DateTime.Now.Month
+                });
+                BazaDanych.ZapiszZmianyWBazie();
+            }
             if (BazaDanych.ObiektBazyDanych.Uczestnicy.Any()) return;
             MessageBox.Show("Uzupe³niam bazê danych");
             BazaDanych.ObiektBazyDanych.Uczestnicy.Add(new Uczestnik { ImieNazwisko="Anna i Micha³ Demiañczuk", DataPrzystapienia=DateTime.Today, Telefon="607783433", Udzial = 0.64m, Wklad = 16000m, Id = Guid.NewGuid() }); //

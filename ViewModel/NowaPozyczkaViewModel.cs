@@ -5,8 +5,6 @@ using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -33,6 +31,7 @@ namespace Fundusz2.ViewModel {
             PolecenieZatwierdz = new RelayCommand(() => ZatwierdzPozyczke());
             DataWyplaty_ = DateTime.Now;
             Uczestnicy = BazaDanych.ObiektBazyDanych.Uczestnicy.ToList();
+            Uwagi_ = "...";
         }
         #endregion
 
@@ -55,12 +54,21 @@ namespace Fundusz2.ViewModel {
                     Uwagi = Uwagi_
                 };
                 BazaDanych.ObiektBazyDanych.Pozyczki.Add(nowaPozyczka);
-                //BazaDanych.FunduszDB.Pozyczki += Kwota_;
+                //
+                var nowaOperacja = new Operacja {
+                    Id = Guid.NewGuid(),
+                    Data = DateTime.Now,
+                    Typ = Operacja.TypOperacji.WyplataPozyczki,
+                    Opis = $"Wypła pożyczki nr {NumerPozyczki}",
+                    Kwota = Kwota_,
+                    NrElementuOperacji = NumerPozyczki
+                };
+                BazaDanych.ObiektBazyDanych.Operacje.Add(nowaOperacja);
+                //
                 BazaDanych.ZapiszZmianyWBazie();
+                //
                 Messenger.Default.Send<Komunikator, MainViewModel>(new Komunikator { Typ = Operacja.TypOperacji.WyplataPozyczki, Wartosc = Kwota_ });
-                foreach (Window window in Application.Current.Windows) {
-                    if (window.Title == "Nowa Pożyczka") window.Close();
-                }
+                Tools.ZamknijOkno("Nowa Pożyczka");
             }
             catch (Exception e) {
                 MessageBox.Show($"Błąd zapisu do bazy danych! \n({e.Message})");
@@ -68,7 +76,7 @@ namespace Fundusz2.ViewModel {
             finally {
                 nrPozyczki++;
                 Kwota_ = 0;
-                Uwagi_ = "";
+                Uwagi_ = "...";
                 Pozyczkobiorca_ = null;
                 DataWyplaty_ = DateTime.Now;
             }

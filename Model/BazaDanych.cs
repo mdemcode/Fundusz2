@@ -27,7 +27,7 @@ namespace Fundusz2.Model {
             get {
                 var padlock = new object();
                 lock (padlock) {
-                    if (funduszDB == null) funduszDB = ObiektBazyDanych.FunduszMain.FirstOrDefault();
+                    if (funduszDB == null) funduszDB = ObiektBazyDanych.FunduszMain.First();
                     return funduszDB;
                 }
             }

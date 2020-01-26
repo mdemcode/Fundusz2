@@ -17,7 +17,6 @@
 
     <!--ZASOBY-->
     <Window.Resources>
-        <dodatki:NrPozyczkiKonwerter x:Key="konwersjaNumeruPozyczki" /> <!--Nie używany-->
         <dodatki:DecimalToStringWalutaKonwerter x:Key="konwersjaDoStringWaluta" />
     </Window.Resources>
 
@@ -55,33 +54,25 @@
         </Label>
 
         <StackPanel Margin="2" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
-            <DataGrid x:Name="DataGridPozyczki" 
-                      Margin="20" 
-                      AutoGenerateColumns="False"
-                      IsReadOnly="True"
-                      ItemsSource="{Binding ViewSource.View}" 
-                      FontSize="16"
-                      Background="{x:Null}"
-                      RowBackground="LightBlue"
-                      BorderThickness="2"
-                      MinRowHeight="35"
-                      RowHeaderWidth="0" 
-                      ColumnHeaderHeight="35" >
-                <DataGrid.ColumnHeaderStyle >
+            <DataGrid x:Name="DataGridPozyczki" Margin="20" AutoGenerateColumns="False"
+                      IsReadOnly="True" ItemsSource="{Binding ViewSource.View}" 
+                      FontSize="16" Background="{x:Null}" RowBackground="LightBlue"
+                      BorderThickness="2" MinRowHeight="35" MaxHeight="300" 
+                      HeadersVisibility="Column" ColumnHeaderHeight="35">
+                <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="FontWeight" Value="DemiBold"/>
                         <Setter Property="FontSize" Value="14" />
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="ToolTip" Value="{Binding Uwagi}"/>
+                    </Style>
+                </DataGrid.RowStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nr pożyczki" Width="0.7*" Binding="{Binding NumerPozyczki}"/>
-                    <DataGridTextColumn Header="Pozyczkobiorca" Width="1.5*" Binding="{Binding Pozyczkobiorca}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip" Value="{Binding Uwagi}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Pozyczkobiorca" Width="1.5*" Binding="{Binding Pozyczkobiorca}"/>
                     <DataGridTextColumn Header="Data Wypłaty" Width="0.9*" Binding="{Binding DataWyplaty}"/>
                     <DataGridTextColumn Header="Kwota Pożyczki" Width="1*" Binding="{Binding KwotaCalkowita}"/>
                     <DataGridTextColumn Header="Pozostało do spłaty" Width="1*" Binding="{Binding KwotaPozostala, Converter={StaticResource konwersjaDoStringWaluta}}"/>
