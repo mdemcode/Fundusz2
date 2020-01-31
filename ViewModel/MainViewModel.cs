@@ -6,6 +6,11 @@ using GalaSoft.MvvmLight.CommandWpf;
 using System.Linq;
 using System;
 using GalaSoft.MvvmLight.Messaging;
+using System.Windows.Interactivity;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Globalization;
+using System.Windows.Threading;
 
 namespace Fundusz2.ViewModel {
     public class MainViewModel : ViewModelBase {
@@ -14,81 +19,133 @@ namespace Fundusz2.ViewModel {
         public decimal Gotowka {
             get {
                 try {
-                    return BazaDanych.FunduszDB.Gotowka;
+                    return BazaDanych.ObiektBazyDanych.FunduszMain.First().Gotowka;
                 }
                 catch {
                     return 0m;
                 }
             }
             set {
-                BazaDanych.FunduszDB.Gotowka = value;
-                RaisePropertyChanged(nameof(Gotowka));
+                BazaDanych.ObiektBazyDanych.FunduszMain.First().Gotowka = value;
                 BazaDanych.ZapiszZmianyWBazie();
+                RaisePropertyChanged(nameof(Gotowka));
             }
         }
         public decimal Pozyczki {
             get {
                 try {
-                    return BazaDanych.FunduszDB.Pozyczki;
+                    return BazaDanych.ObiektBazyDanych.Pozyczki.Sum(x => x.PozostaloDoSplaty);
                 }
                 catch {
                     return 0m;
                 }
             }
-            set {
-                BazaDanych.FunduszDB.Pozyczki = value;
-                RaisePropertyChanged(nameof(Pozyczki));
-                BazaDanych.ZapiszZmianyWBazie();
-            }
+            //set {
+            //    BazaDanych.ObiektBazyDanych.FunduszMain.First().Pozyczki = value;
+            //    RaisePropertyChanged(nameof(Pozyczki));
+            //    BazaDanych.ZapiszZmianyWBazie();
+            //}
         }
-        public decimal Lokaty {
+        public decimal Lokaty { //=> BazaDanych.ObiektBazyDanych.Lokaty?.Sum(x => x.Kwota) ?? 0;
             get {
                 try {
-                    return BazaDanych.FunduszDB.Lokaty;
+                    return BazaDanych.ObiektBazyDanych.Lokaty.Sum(x => x.Kwota); // BazaDanych.ObiektBazyDanych.FunduszMain.First().Lokaty;
                 }
                 catch {
                     return 0m;
                 }
             }
-            set {
-                BazaDanych.FunduszDB.Lokaty = value;
-                RaisePropertyChanged(nameof(Lokaty));
-                BazaDanych.ZapiszZmianyWBazie();
-            }
+            //set
+            //{
+            //    BazaDanych.ObiektBazyDanych.FunduszMain.First().Lokaty = value;
+            //    RaisePropertyChanged(nameof(Lokaty));
+            //    BazaDanych.ZapiszZmianyWBazie();
+            //}
         }
-        public decimal InneInwestycje {
+        public decimal InneInwestycje { //=> BazaDanych.ObiektBazyDanych.Inwestycje?.Sum(x => x.KwotaPoczatkowa) ?? 0;
             get {
                 try {
-                    return BazaDanych.FunduszDB.InneInwestycje;
+                    return BazaDanych.ObiektBazyDanych.Inwestycje.Sum(x => x.KwotaPoczatkowa); // BazaDanych.ObiektBazyDanych.FunduszMain.First().InneInwestycje;
                 }
                 catch {
                     return 0m;
                 }
             }
-            set {
-                BazaDanych.FunduszDB.InneInwestycje = value;
-                RaisePropertyChanged(nameof(InneInwestycje));
-                BazaDanych.ZapiszZmianyWBazie();
-            }
+            //set
+            //{
+            //    BazaDanych.ObiektBazyDanych.FunduszMain.First().InneInwestycje = value;
+            //    RaisePropertyChanged(nameof(InneInwestycje));
+            //    BazaDanych.ZapiszZmianyWBazie();
+            //}
         }
         #endregion
 
         #region POLECENIA
-        public ICommand ZamknijOknoComm { get; private set; } // <- przyk³ad polecenia
+        public ICommand ZamknijOknoComm { get; private set; }
         public ICommand PolecenieUzupelnijBaze { get; private set; }
+        public ICommand TmpCommand { get; private set; }
         #endregion
 
         #region KONSTRUKTOR
         public MainViewModel() {
+            // Polecenia:
             ZamknijOknoComm = new RelayCommand(() => Zamknij());
             PolecenieUzupelnijBaze = new RelayCommand(() => FillTheBase());
-            //Messenger:
+            TmpCommand = new RelayCommand(() => TempCommand());
+            // Messenger:
             Messenger.Default.Register<Komunikator>(this, WykonajKomunikat);
-            if (!BazaDanych.ObiektBazyDanych.FunduszMain.Any()) MessageBox.Show("B³¹d odczytu z bazy danych");
+            //
+            if (BazaDanych.ObiektBazyDanych.FunduszMain.Any()) {
+            //    MessageBox.Show("B³¹d odczytu z bazy danych");
+            //    Zamknij();
+            //}
+            //else {
+                var miesiacNaliczeniaOdsetek = BazaDanych.ObiektBazyDanych.FunduszMain.First().MiesiacNaliczeniaOdsetek;
+                if (miesiacNaliczeniaOdsetek != DateTime.Now.Month) {
+                    var naliczOdsetki = Task.Factory.StartNew(() => {NaliczOdsetki(miesiacNaliczeniaOdsetek);});
+                    naliczOdsetki.Wait();
+                }
+            }
         }
         #endregion
 
         #region METODY
+        private void NaliczOdsetki(int miesiacNaliczeniaOdsetek) {
+            if (!BazaDanych.ObiektBazyDanych.Pozyczki.Any()) {
+                BazaDanych.ObiektBazyDanych.FunduszMain.First().MiesiacNaliczeniaOdsetek = DateTime.Now.Month;
+                BazaDanych.ZapiszZmianyWBazie();
+                return;
+            }
+            var oprocentowanie = BazaDanych.ObiektBazyDanych.FunduszMain.First().OprocentowaniePozyczek;
+            //string inputResult = "";
+            //try {
+            //    inputResult = Microsoft.VisualBasic.Interaction.InputBox("Wpisz aktualn¹ wartoœæ WIBOR3M:", "WIBOR3M", "1,71");
+            //    mnoznik = (decimal.Parse(inputResult) + 1)/100;
+            //}
+            //catch {
+            //    MessageBox.Show("B³êdnie wpisana wartoœæ Wibor3m.\n\nZamykam aplikacjê ...");
+            //    Dispatcher.CurrentDispatcher.BeginInvoke(new Action(()=> Zamknij()));
+            //}
+            while (miesiacNaliczeniaOdsetek != DateTime.Now.Month) {
+                BazaDanych.ObiektBazyDanych.Pozyczki.ToList().ForEach(x => {
+                    x.PozostaloDoSplaty += (oprocentowanie/12) * x.PozostaloDoSplaty;
+                    var operacja = new Operacja {
+                        Id = Guid.NewGuid(),
+                        Data = DateTime.Now,
+                        Kwota = (oprocentowanie/12) * x.PozostaloDoSplaty,
+                        NrElementuOperacji = x.NrPozyczki + "/POZ/" + x.PostFix,
+                        Typ = Operacja.TypOperacji.OdsetkiPozyczki,
+                        Opis = $"Naliczenie odsetek do pozyczki nr: {x.NrPozyczki}/POZ/{x.PostFix}. Oprocentowanie (w skali roku): {oprocentowanie}%."
+                    };
+                    BazaDanych.ObiektBazyDanych.Operacje.Add(operacja);
+                    });
+                if (miesiacNaliczeniaOdsetek == 12) miesiacNaliczeniaOdsetek = 1;
+                else miesiacNaliczeniaOdsetek++;
+            }
+            BazaDanych.ObiektBazyDanych.FunduszMain.First().MiesiacNaliczeniaOdsetek = miesiacNaliczeniaOdsetek;
+            BazaDanych.ZapiszZmianyWBazie();
+            MessageBox.Show($"Naliczono odsetki za miesi¹c {DateTime.Now.Month}");
+        }
         private void Zamknij() {
             Application.Current.Shutdown();
         }
@@ -97,14 +154,17 @@ namespace Fundusz2.ViewModel {
                 case Operacja.TypOperacji.FunduszZalozycielski:
                     break;
                 case Operacja.TypOperacji.SplataPozyczki:
+                    Gotowka += komunikat.Wartosc;
+                    RaisePropertyChanged(nameof(Pozyczki));
                     break;
                 case Operacja.TypOperacji.PrzychodZLokaty:
                     break;
                 case Operacja.TypOperacji.PrzychodInny:
                     break;
                 case Operacja.TypOperacji.WyplataPozyczki:
-                    Pozyczki += komunikat.Wartosc;
+                    //Pozyczki += komunikat.Wartosc;
                     Gotowka -= komunikat.Wartosc;
+                    RaisePropertyChanged(nameof(Pozyczki));
                     break;
                 case Operacja.TypOperacji.RozchodNaLokate:
                     break;
@@ -115,22 +175,47 @@ namespace Fundusz2.ViewModel {
             }
         }
         private void FillTheBase() {
+            MessageBox.Show("Uzupe³niam bazê danych...");
             if (!BazaDanych.ObiektBazyDanych.FunduszMain.Any()) {
                 BazaDanych.ObiektBazyDanych.FunduszMain.Add(new Fundusz {
                     Gotowka = 25000,
-                    InneInwestycje = 0,
-                    Lokaty = 0,
-                    Pozyczki = 0,
-                    MiesiacNaliczeniaOdsetek = DateTime.Now.Month
+                    OprocentowaniePozyczek = 0.0200m, // UWAGA! Do bazy zapisuje z dok³adnoœci¹ do 0.00
+                    MiesiacNaliczeniaOdsetek = DateTime.Now.Month - 1
                 });
                 BazaDanych.ZapiszZmianyWBazie();
+                RaisePropertyChanged(nameof(Gotowka));
+                BazaDanych.ObiektBazyDanych.Operacje.Add(new Operacja { 
+                    Id = Guid.NewGuid(),
+                    Data = DateTime.Now - TimeSpan.FromDays(700),
+                    Kwota = 25000,
+                    NrElementuOperacji = "---",
+                    Opis = "FUNDUSZ ZA£O¯YCIELSKI",
+                    Typ = Operacja.TypOperacji.FunduszZalozycielski
+                });
+                decimal dopisywaneOdsetki = 1000;
+                BazaDanych.ObiektBazyDanych.Operacje.Add(new Operacja {
+                    Id = Guid.NewGuid(),
+                    Data = DateTime.Now,
+                    Kwota = dopisywaneOdsetki,
+                    NrElementuOperacji = "---",
+                    Opis = "Odsetki z porzedniego systemu.",
+                    Typ = Operacja.TypOperacji.PrzychodInny
+                });
+                Gotowka += dopisywaneOdsetki;
             }
-            if (BazaDanych.ObiektBazyDanych.Uczestnicy.Any()) return;
-            MessageBox.Show("Uzupe³niam bazê danych");
-            BazaDanych.ObiektBazyDanych.Uczestnicy.Add(new Uczestnik { ImieNazwisko="Anna i Micha³ Demiañczuk", DataPrzystapienia=DateTime.Today, Telefon="607783433", Udzial = 0.64m, Wklad = 16000m, Id = Guid.NewGuid() }); //
-            BazaDanych.ObiektBazyDanych.Uczestnicy.Add(new Uczestnik { ImieNazwisko = "Dominik Demiañczuk", DataPrzystapienia = DateTime.Today, Telefon = "511911162", Udzial = 0.20m, Wklad = 5000m, Id = Guid.NewGuid() });
-            BazaDanych.ObiektBazyDanych.Uczestnicy.Add(new Uczestnik { ImieNazwisko = "Jakub Demiañczuk", DataPrzystapienia = DateTime.Today, Telefon = "514380888", Udzial = 0.16m, Wklad = 4000m, Id = Guid.NewGuid() });
+            if (!BazaDanych.ObiektBazyDanych.Uczestnicy.Any()) { 
+                BazaDanych.ObiektBazyDanych.Uczestnicy.Add(new Uczestnik { ImieNazwisko="Anna i Micha³ Demiañczuk", DataPrzystapienia=DateTime.Today - TimeSpan.FromDays(700), Telefon="607783433", Udzial = 0.64m, Wklad = 16000m, Id = Guid.NewGuid() });
+                BazaDanych.ObiektBazyDanych.Uczestnicy.Add(new Uczestnik { ImieNazwisko = "Dominik Demiañczuk", DataPrzystapienia = DateTime.Today - TimeSpan.FromDays(700), Telefon = "511911162", Udzial = 0.20m, Wklad = 5000m, Id = Guid.NewGuid() });
+                BazaDanych.ObiektBazyDanych.Uczestnicy.Add(new Uczestnik { ImieNazwisko = "Jakub Demiañczuk", DataPrzystapienia = DateTime.Today - TimeSpan.FromDays(700), Telefon = "514380888", Udzial = 0.16m, Wklad = 4000m, Id = Guid.NewGuid() });
+            };
             BazaDanych.ZapiszZmianyWBazie();
+            RaisePropertyChanged(nameof(Gotowka));
+            MessageBox.Show("...ju¿");
+        }
+        private void TempCommand () {
+            BazaDanych.ObiektBazyDanych.Pozyczki.First().PozostaloDoSplaty += 100;
+            BazaDanych.ZapiszZmianyWBazie();
+            RaisePropertyChanged(nameof(Pozyczki));
         }
         #endregion
     }

@@ -1,0 +1,28 @@
+﻿<Window x:Class="Fundusz2.View.SplataPozyczkiView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Fundusz2.View"
+        
+        DataContext="{Binding SplataPozyczkiVM, Source={StaticResource Locator}}"
+        
+        Title="Spłata Pożyczki" Height="200" Width="350" Left="200" Top="200" 
+        Background="#FF4696BB" AllowsTransparency="True" 
+        BorderBrush="GreenYellow"  BorderThickness="3"
+        WindowStyle="None">
+    <Grid>
+        <StackPanel >
+            <Label VerticalAlignment="Center"  VerticalContentAlignment="Center" 
+               HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+               FontSize="30" FontFamily="Monotype Corsiva" Margin="0,10,0,10">
+                Spłacana kwota:
+            </Label>
+            <TextBox x:Name="textboxKwota" Margin="100,10,100,30" FontSize="18" FontWeight="DemiBold" 
+                     Height="35" HorizontalContentAlignment="Center" Foreground="DarkGreen"/>
+            <Button x:Name="buttonZatwierdz" Height="30" Width="120" Content="Zatwierdź" FontSize="14" 
+                    Command="{Binding PolecenieZatwierdz}"
+                    CommandParameter="{Binding ElementName=textboxKwota, Path=Text}"/>
+        </StackPanel>
+    </Grid>
+</Window>

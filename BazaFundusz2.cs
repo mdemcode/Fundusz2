@@ -5,7 +5,7 @@ namespace Fundusz2 {
     using System.Linq;
 
     public class BazaFundusz2 : DbContext {
-        public BazaFundusz2() : base("name=BazaFundusz2") {
+        public BazaFundusz2() : base("name=BazaFundusz") {
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<BazaFundusz2>());
         }
         public virtual DbSet<Fundusz> FunduszMain { get; set; }

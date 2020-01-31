@@ -6,7 +6,8 @@ namespace Fundusz2.Dodatki {
 
     public class DecimalToStringWalutaKonwerter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            return value.ToString() + " zł";
+            var zaokr = Math.Round((decimal)value, 2);
+            return zaokr.ToString() + " zł";
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
             throw new NotImplementedException();

@@ -43,8 +43,9 @@
             <ColumnDefinition Width="0.7*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Label VerticalAlignment="Center" 
-               Grid.ColumnSpan="4" 
+        <Label VerticalAlignment="Center"
+               Grid.Column="1"
+               Grid.ColumnSpan="2" 
                VerticalContentAlignment="Center" 
                HorizontalAlignment="Center" 
                HorizontalContentAlignment="Center" 

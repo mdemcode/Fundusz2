@@ -13,6 +13,7 @@ namespace Fundusz2.ViewModel {
             SimpleIoc.Default.Register<UczestnicyViewModel>();
             SimpleIoc.Default.Register<PozyczkiViewModel>();
             SimpleIoc.Default.Register<NowaPozyczkaViewModel>();
+            SimpleIoc.Default.Register<SplataPozyczkiViewModel>();
         }
         #endregion
 
@@ -37,7 +38,12 @@ namespace Fundusz2.ViewModel {
                 return SimpleIoc.Default.GetInstance<NowaPozyczkaViewModel>();
             }
         }
-        
+        public SplataPozyczkiViewModel SplataPozyczkiVM {
+            get            {
+                return SimpleIoc.Default.GetInstance<SplataPozyczkiViewModel>();
+            }
+        }
+
         //TODO do wywalenia
         public TestViewModel Test1 {
             get {

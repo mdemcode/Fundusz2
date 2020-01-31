@@ -20,6 +20,7 @@ namespace Fundusz2.Model {
 
         public enum TypOperacji {
             FunduszZalozycielski,
+            OdsetkiPozyczki,
             SplataPozyczki,
             PrzychodZLokaty,
             PrzychodInny,

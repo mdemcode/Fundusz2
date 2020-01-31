@@ -9,8 +9,8 @@ namespace Fundusz2.Model {
         //public static bool TrybProj => Debugger.IsAttached ? true : false;
         //
         #region POLA PRYWATNE
-        private static BazaFundusz2 obiektBazyDanych = null;
-        private static Fundusz funduszDB = null;
+        private static BazaFundusz2 obiektBazyDanych;
+        //private static Fundusz funduszDB = null;
         #endregion
         //
         #region PROPERTIES (public)
@@ -22,20 +22,24 @@ namespace Fundusz2.Model {
                     return obiektBazyDanych;
                 }
             }
-        }
-        public static Fundusz FunduszDB {
-            get {
-                var padlock = new object();
-                lock (padlock) {
-                    if (funduszDB == null) funduszDB = ObiektBazyDanych.FunduszMain.First();
-                    return funduszDB;
-                }
-            }
             set {
-                funduszDB = value;
-                ZapiszZmianyWBazie();
+                obiektBazyDanych = value;
+                //ZapiszZmianyWBazie();
             }
         }
+        //public static Fundusz FunduszDB {
+        //    get {
+        //        var padlock = new object();
+        //        lock (padlock) {
+        //            if (funduszDB == null) funduszDB = ObiektBazyDanych.FunduszMain.First();
+        //            return funduszDB;
+        //        }
+        //    }
+        //    set {
+        //        funduszDB = value;
+        //        ZapiszZmianyWBazie();
+        //    }
+        //}
         #endregion
         //
         BazaDanych() {} //PUSTY KONSTRUKTOR
@@ -51,7 +55,7 @@ namespace Fundusz2.Model {
         //    }
         //}
         public static void ZapiszZmianyWBazie() {
-            if (ObiektBazyDanych == null) return;
+            //if (ObiektBazyDanych == null) return;
             try {
                 obiektBazyDanych.SaveChanges();
             }

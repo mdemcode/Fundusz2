@@ -1,10 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Fundusz2.Model {
     [Table("Fundusz")]
@@ -12,9 +7,10 @@ namespace Fundusz2.Model {
         [Key]
         public int Id { get; set; }
         public decimal Gotowka { get; set; }
-        public decimal Pozyczki { get; set; }
-        public decimal Lokaty { get; set; }
-        public decimal InneInwestycje { get; set; }
+        public decimal Rez2 { get; set; }
+        public decimal Rez1 { get; set; }
+        // Oprocentowanie w skali miesiąca zmieniane ręcznie (póki co) = Wibor3m zaokrąglony w górę do 0,005 (0,5%) / 12
+        public decimal OprocentowaniePozyczek { get; set; }         
         public int MiesiacNaliczeniaOdsetek { get; set; }
     }
 }
