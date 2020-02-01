@@ -34,7 +34,7 @@
     <ProductName>Fundusz Rodzinny</ProductName>
     <PublisherName>Michał Demiańczuk</PublisherName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -139,7 +139,7 @@
     <Compile Include="ViewModel\NowaPozyczkaViewModel.cs" />
     <Compile Include="ViewModel\PozyczkiViewModel.cs" />
     <Compile Include="ViewModel\SplataPozyczkiViewModel.cs" />
-    <Compile Include="ViewModel\TestViewModel.cs" />
+    <Compile Include="ViewModel\OperacjeViewModel.cs" />
     <Compile Include="ViewModel\Tools1.cs" />
     <Compile Include="ViewModel\UczestnicyViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -152,8 +152,8 @@
     <Compile Include="View\SplataPozyczkiView.xaml.cs">
       <DependentUpon>SplataPozyczkiView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\TestView.xaml.cs">
-      <DependentUpon>TestView.xaml</DependentUpon>
+    <Compile Include="View\OperacjeView.xaml.cs">
+      <DependentUpon>OperacjeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UczestnicyView.xaml.cs">
       <DependentUpon>UczestnicyView.xaml</DependentUpon>
@@ -187,7 +187,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\TestView.xaml">
+    <Page Include="View\OperacjeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

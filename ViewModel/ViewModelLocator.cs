@@ -9,7 +9,7 @@ namespace Fundusz2.ViewModel {
         #region KONSTRUKTOR
         public ViewModelLocator() {
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<TestViewModel>(); //TODO wywalenia
+            SimpleIoc.Default.Register<OperacjeViewModel>(); 
             SimpleIoc.Default.Register<UczestnicyViewModel>();
             SimpleIoc.Default.Register<PozyczkiViewModel>();
             SimpleIoc.Default.Register<NowaPozyczkaViewModel>();
@@ -43,11 +43,9 @@ namespace Fundusz2.ViewModel {
                 return SimpleIoc.Default.GetInstance<SplataPozyczkiViewModel>();
             }
         }
-
-        //TODO do wywalenia
-        public TestViewModel Test1 {
+        public OperacjeViewModel OperacjeVM {
             get {
-                return SimpleIoc.Default.GetInstance<TestViewModel>();
+                return SimpleIoc.Default.GetInstance<OperacjeViewModel>();
             }
         }
         #endregion

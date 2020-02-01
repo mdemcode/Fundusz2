@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 
 namespace Fundusz2.View {
-    public partial class TestView : Window {
-        public TestView() {
+    public partial class OperacjeView : Window {
+        public OperacjeView() {
             InitializeComponent();
         }
     }

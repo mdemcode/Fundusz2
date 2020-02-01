@@ -96,10 +96,6 @@ namespace Fundusz2.ViewModel {
             Messenger.Default.Register<Komunikator>(this, WykonajKomunikat);
             //
             if (BazaDanych.ObiektBazyDanych.FunduszMain.Any()) {
-            //    MessageBox.Show("B³¹d odczytu z bazy danych");
-            //    Zamknij();
-            //}
-            //else {
                 var miesiacNaliczeniaOdsetek = BazaDanych.ObiektBazyDanych.FunduszMain.First().MiesiacNaliczeniaOdsetek;
                 if (miesiacNaliczeniaOdsetek != DateTime.Now.Month) {
                     var naliczOdsetki = Task.Factory.StartNew(() => {NaliczOdsetki(miesiacNaliczeniaOdsetek);});
@@ -117,15 +113,6 @@ namespace Fundusz2.ViewModel {
                 return;
             }
             var oprocentowanie = BazaDanych.ObiektBazyDanych.FunduszMain.First().OprocentowaniePozyczek;
-            //string inputResult = "";
-            //try {
-            //    inputResult = Microsoft.VisualBasic.Interaction.InputBox("Wpisz aktualn¹ wartoœæ WIBOR3M:", "WIBOR3M", "1,71");
-            //    mnoznik = (decimal.Parse(inputResult) + 1)/100;
-            //}
-            //catch {
-            //    MessageBox.Show("B³êdnie wpisana wartoœæ Wibor3m.\n\nZamykam aplikacjê ...");
-            //    Dispatcher.CurrentDispatcher.BeginInvoke(new Action(()=> Zamknij()));
-            //}
             while (miesiacNaliczeniaOdsetek != DateTime.Now.Month) {
                 BazaDanych.ObiektBazyDanych.Pozyczki.ToList().ForEach(x => {
                     x.PozostaloDoSplaty += (oprocentowanie/12) * x.PozostaloDoSplaty;
@@ -146,9 +133,6 @@ namespace Fundusz2.ViewModel {
             BazaDanych.ZapiszZmianyWBazie();
             MessageBox.Show($"Naliczono odsetki za miesi¹c {DateTime.Now.Month}");
         }
-        private void Zamknij() {
-            Application.Current.Shutdown();
-        }
         private void WykonajKomunikat(Komunikator komunikat) {
             switch (komunikat.Typ) {
                 case Operacja.TypOperacji.FunduszZalozycielski:
@@ -162,7 +146,6 @@ namespace Fundusz2.ViewModel {
                 case Operacja.TypOperacji.PrzychodInny:
                     break;
                 case Operacja.TypOperacji.WyplataPozyczki:
-                    //Pozyczki += komunikat.Wartosc;
                     Gotowka -= komunikat.Wartosc;
                     RaisePropertyChanged(nameof(Pozyczki));
                     break;
@@ -173,6 +156,9 @@ namespace Fundusz2.ViewModel {
                 default:
                     break;
             }
+        }
+        private void Zamknij() {
+            Application.Current.Shutdown();
         }
         private void FillTheBase() {
             MessageBox.Show("Uzupe³niam bazê danych...");
@@ -192,7 +178,7 @@ namespace Fundusz2.ViewModel {
                     Opis = "FUNDUSZ ZA£O¯YCIELSKI",
                     Typ = Operacja.TypOperacji.FunduszZalozycielski
                 });
-                decimal dopisywaneOdsetki = 1000;
+                decimal dopisywaneOdsetki = 934.58m;
                 BazaDanych.ObiektBazyDanych.Operacje.Add(new Operacja {
                     Id = Guid.NewGuid(),
                     Data = DateTime.Now,
@@ -213,9 +199,6 @@ namespace Fundusz2.ViewModel {
             MessageBox.Show("...ju¿");
         }
         private void TempCommand () {
-            BazaDanych.ObiektBazyDanych.Pozyczki.First().PozostaloDoSplaty += 100;
-            BazaDanych.ZapiszZmianyWBazie();
-            RaisePropertyChanged(nameof(Pozyczki));
         }
         #endregion
     }

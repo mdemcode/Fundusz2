@@ -145,10 +145,10 @@
             </i:Interaction.Behaviors>
         </Button>
         <Button x:Name="ButtonTest" Grid.Row="4" Grid.Column="1" Height="90" Width="240" 
-                Content="..." Background="LightSeaGreen" FontSize="20" 
+                Content="Lista Operacji" Background="LightSeaGreen" FontSize="20" 
                 VerticalAlignment="Center" HorizontalAlignment="Center">
             <i:Interaction.Behaviors>
-                <z:OtworzOkno x:Name="otwTest" Parametr="TestView"/>
+                <z:OtworzOkno x:Name="otwTest" Parametr="OperacjeView"/>
             </i:Interaction.Behaviors>
         </Button>
         <Button x:Name="ButtonDoBazy" Grid.Row="4" Grid.Column="2" Height="90" Width="240" 
@@ -157,7 +157,7 @@
                 Command="{Binding PolecenieUzupelnijBaze}" />
         
         <Button x:Name="ButtonTestowy" Grid.Row="4" Grid.Column="3" Height="90" Width="240" 
-                Content="Test" Background="LightSeaGreen" FontSize="20" 
+                Content="Tmp" Background="LightSeaGreen" FontSize="20" 
                 VerticalAlignment="Center" HorizontalAlignment="Center"
                 Command="{Binding TmpCommand}"/>
 
