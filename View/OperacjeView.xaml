@@ -55,13 +55,23 @@
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Data" Width="0.5*" Binding="{Binding Data}"/>
+                    <DataGridTextColumn Header="Data" Width="0.5*" Binding="{Binding Data, StringFormat=d, ConverterCulture=pl-PL}"/>
                     <DataGridTextColumn Header="Opis" Width="2*" Binding="{Binding Opis}"/>
                     <DataGridTextColumn Header="Kwota Operacji" Width="0.4*" Binding="{Binding Kwota, Converter={StaticResource konwersjaDoStringWaluta}}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        
+
+        <Label Grid.Row="2" Margin="10"
+               VerticalAlignment="Center"  VerticalContentAlignment="Center" 
+               HorizontalAlignment="Right"  HorizontalContentAlignment="Right"  
+               FontSize="18" FontFamily="Monotype Corsiva">
+            Zmień rok: 
+        </Label>
+
+        <ComboBox Grid.Row="2" Grid.Column="1" Margin="10,20,150,20" FontSize="16" >
+            <TextBlock Text="2020" FontWeight="DemiBold"/>
+        </ComboBox>
 
         <Button x:Name="ButtonZamknij" Grid.Row="4" Grid.Column="3" Height="40" Width="40" Margin="8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" >
             <Image Source = "..\Dodatki\Grafiki\back.png"></Image>

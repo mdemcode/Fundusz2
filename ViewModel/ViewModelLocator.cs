@@ -14,6 +14,8 @@ namespace Fundusz2.ViewModel {
             SimpleIoc.Default.Register<PozyczkiViewModel>();
             SimpleIoc.Default.Register<NowaPozyczkaViewModel>();
             SimpleIoc.Default.Register<SplataPozyczkiViewModel>();
+            SimpleIoc.Default.Register<LokatyViewModel>();
+            SimpleIoc.Default.Register<NowaLokataViewModel>();
         }
         #endregion
 
@@ -48,8 +50,18 @@ namespace Fundusz2.ViewModel {
                 return SimpleIoc.Default.GetInstance<OperacjeViewModel>();
             }
         }
+        public LokatyViewModel LokatyVM {
+            get {
+                return SimpleIoc.Default.GetInstance<LokatyViewModel>();
+            }
+        }
+        public NowaLokataViewModel NowaLokataVM {
+            get {
+                return SimpleIoc.Default.GetInstance<NowaLokataViewModel>();
+            }
+        }
         #endregion
-        
+
         public static void Cleanup() {
             // TODO Clear the ViewModels
         }

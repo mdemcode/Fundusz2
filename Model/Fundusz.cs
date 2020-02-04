@@ -9,7 +9,7 @@ namespace Fundusz2.Model {
         public decimal Gotowka { get; set; }
         public decimal Rez2 { get; set; }
         public decimal Rez1 { get; set; }
-        // Oprocentowanie w skali miesiąca zmieniane ręcznie (póki co) = Wibor3m zaokrąglony w górę do 0,005 (0,5%) / 12
+        // Oprocentowanie w skali roku zmieniane ręcznie (póki co) = Wibor3m + 0,01 (1%); w zaokrągleniu do 0,001 (0,1%)
         public decimal OprocentowaniePozyczek { get; set; }         
         public int MiesiacNaliczeniaOdsetek { get; set; }
     }

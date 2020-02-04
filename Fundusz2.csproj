@@ -20,21 +20,19 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>C:\Users\Michael_\Desktop\FunduszProgram\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Unc</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>\\localhost\Users\Michael_\Desktop\FunduszProgram\</InstallUrl>
     <UpdateUrl>http://localhost/Fundusz2/</UpdateUrl>
     <TargetCulture>pl-PL</TargetCulture>
     <ProductName>Fundusz Rodzinny</ProductName>
     <PublisherName>Michał Demiańczuk</PublisherName>
-    <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationRevision>12</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -135,7 +133,9 @@
       <DependentUpon>StartLogo.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Komunikator.cs" />
+    <Compile Include="ViewModel\LokatyViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\NowaLokataViewModel.cs" />
     <Compile Include="ViewModel\NowaPozyczkaViewModel.cs" />
     <Compile Include="ViewModel\PozyczkiViewModel.cs" />
     <Compile Include="ViewModel\SplataPozyczkiViewModel.cs" />
@@ -143,6 +143,12 @@
     <Compile Include="ViewModel\Tools1.cs" />
     <Compile Include="ViewModel\UczestnicyViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\LokatyView.xaml.cs">
+      <DependentUpon>LokatyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NowaLokataView.xaml.cs">
+      <DependentUpon>NowaLokataView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\NowaPozyczkaView.xaml.cs">
       <DependentUpon>NowaPozyczkaView.xaml</DependentUpon>
     </Compile>
@@ -172,6 +178,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="StartLogo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LokatyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NowaLokataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

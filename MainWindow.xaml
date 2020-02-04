@@ -145,7 +145,7 @@
             </i:Interaction.Behaviors>
         </Button>
         <Button x:Name="ButtonTest" Grid.Row="4" Grid.Column="1" Height="90" Width="240" 
-                Content="Lista Operacji" Background="LightSeaGreen" FontSize="20" 
+                Content="..." Background="LightSeaGreen" FontSize="20" 
                 VerticalAlignment="Center" HorizontalAlignment="Center">
             <i:Interaction.Behaviors>
                 <z:OtworzOkno x:Name="otwTest" Parametr="OperacjeView"/>

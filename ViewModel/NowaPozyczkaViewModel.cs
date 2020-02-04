@@ -20,7 +20,6 @@ namespace Fundusz2.ViewModel {
         public decimal Kwota_ { get; set; }
         public DateTime DataWyplaty_ { get; set; }
         public string Uwagi_ { get; set; }
-        //
         public ICommand PolecenieZatwierdz { get; private set; }
         #endregion
 

@@ -47,9 +47,6 @@ namespace Fundusz2.ViewModel {
             splacanaPozyczka = o as PozyczkaDTO;
             var okno = (Window)Activator.CreateInstance(Type.GetType("Fundusz2.View.SplataPozyczkiView"));
             okno.ShowDialog();
-            //var kwota_splaty = 20m;
-            ////
-            //pozyczka.KwotaPozostala -= kwota_splaty;
         }
         private void NowaPozyczka() {
             var okno = (Window)Activator.CreateInstance(Type.GetType("Fundusz2.View.NowaPozyczkaView"));

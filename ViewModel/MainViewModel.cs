@@ -122,7 +122,7 @@ namespace Fundusz2.ViewModel {
                         Kwota = (oprocentowanie/12) * x.PozostaloDoSplaty,
                         NrElementuOperacji = x.NrPozyczki + "/POZ/" + x.PostFix,
                         Typ = Operacja.TypOperacji.OdsetkiPozyczki,
-                        Opis = $"Naliczenie odsetek do pozyczki nr: {x.NrPozyczki}/POZ/{x.PostFix}. Oprocentowanie (w skali roku): {oprocentowanie}%."
+                        Opis = $"Naliczenie odsetek do pozyczki nr: {x.NrPozyczki}/POZ/{x.PostFix}. Oprocentowanie (w skali roku): {oprocentowanie*100}%."
                     };
                     BazaDanych.ObiektBazyDanych.Operacje.Add(operacja);
                     });
@@ -150,6 +150,8 @@ namespace Fundusz2.ViewModel {
                     RaisePropertyChanged(nameof(Pozyczki));
                     break;
                 case Operacja.TypOperacji.RozchodNaLokate:
+                    Gotowka -= komunikat.Wartosc;
+                    RaisePropertyChanged(nameof(Lokaty));
                     break;
                 case Operacja.TypOperacji.RozchodInny:
                     break;
@@ -165,7 +167,7 @@ namespace Fundusz2.ViewModel {
             if (!BazaDanych.ObiektBazyDanych.FunduszMain.Any()) {
                 BazaDanych.ObiektBazyDanych.FunduszMain.Add(new Fundusz {
                     Gotowka = 25000,
-                    OprocentowaniePozyczek = 0.0200m, // UWAGA! Do bazy zapisuje z dok³adnoœci¹ do 0.00
+                    OprocentowaniePozyczek = 0.0270m, // UWAGA! Do bazy zapisuje z dok³adnoœci¹ do 0.00 !!!
                     MiesiacNaliczeniaOdsetek = DateTime.Now.Month - 1
                 });
                 BazaDanych.ZapiszZmianyWBazie();
@@ -199,6 +201,9 @@ namespace Fundusz2.ViewModel {
             MessageBox.Show("...ju¿");
         }
         private void TempCommand () {
+            var data = BazaDanych.ObiektBazyDanych.Pozyczki.First().DataWyplaty;
+            var nowaData = data.AddDays(35);
+            MessageBox.Show(nowaData.ToShortDateString());
         }
         #endregion
     }
