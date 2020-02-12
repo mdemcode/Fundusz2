@@ -49,7 +49,7 @@ namespace Fundusz2.ViewModel {
         public decimal Lokaty { //=> BazaDanych.ObiektBazyDanych.Lokaty?.Sum(x => x.Kwota) ?? 0;
             get {
                 try {
-                    return BazaDanych.ObiektBazyDanych.Lokaty.Sum(x => x.Kwota); // BazaDanych.ObiektBazyDanych.FunduszMain.First().Lokaty;
+                    return BazaDanych.ObiektBazyDanych.Lokaty.Where(x=>x.Zamknieta!=true).Sum(x => x.Kwota); // BazaDanych.ObiektBazyDanych.FunduszMain.First().Lokaty;
                 }
                 catch {
                     return 0m;
@@ -94,11 +94,11 @@ namespace Fundusz2.ViewModel {
             TmpCommand = new RelayCommand(() => TempCommand());
             // Messenger:
             Messenger.Default.Register<Komunikator>(this, WykonajKomunikat);
-            //
+            // Naliczenie odsetek od pozyczek
             if (BazaDanych.ObiektBazyDanych.FunduszMain.Any()) {
                 var miesiacNaliczeniaOdsetek = BazaDanych.ObiektBazyDanych.FunduszMain.First().MiesiacNaliczeniaOdsetek;
                 if (miesiacNaliczeniaOdsetek != DateTime.Now.Month) {
-                    var naliczOdsetki = Task.Factory.StartNew(() => {NaliczOdsetki(miesiacNaliczeniaOdsetek);});
+                    var naliczOdsetki = Task.Factory.StartNew(() => NaliczOdsetki(miesiacNaliczeniaOdsetek));
                     naliczOdsetki.Wait();
                 }
             }
@@ -142,6 +142,8 @@ namespace Fundusz2.ViewModel {
                     RaisePropertyChanged(nameof(Pozyczki));
                     break;
                 case Operacja.TypOperacji.PrzychodZLokaty:
+                    Gotowka += komunikat.Wartosc;
+                    RaisePropertyChanged(nameof(Lokaty));
                     break;
                 case Operacja.TypOperacji.PrzychodInny:
                     break;

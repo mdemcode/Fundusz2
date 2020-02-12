@@ -16,6 +16,8 @@ namespace Fundusz2.ViewModel {
             SimpleIoc.Default.Register<SplataPozyczkiViewModel>();
             SimpleIoc.Default.Register<LokatyViewModel>();
             SimpleIoc.Default.Register<NowaLokataViewModel>();
+            SimpleIoc.Default.Register<OdsetkiViewModel>();
+            SimpleIoc.Default.Register<WiborViewModel>();
         }
         #endregion
 
@@ -60,6 +62,12 @@ namespace Fundusz2.ViewModel {
                 return SimpleIoc.Default.GetInstance<NowaLokataViewModel>();
             }
         }
+        public OdsetkiViewModel OdsetkiVM {
+            get {
+                return SimpleIoc.Default.GetInstance<OdsetkiViewModel>();
+            }
+        }
+        public WiborViewModel WiborVM => SimpleIoc.Default.GetInstance<WiborViewModel>();
         #endregion
 
         public static void Cleanup() {

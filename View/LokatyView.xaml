@@ -43,14 +43,13 @@
             <ColumnDefinition Width="1*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="0.7*"></ColumnDefinition>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Label VerticalAlignment="Center"
                Grid.Column="1"
-               Grid.ColumnSpan="2" 
                VerticalContentAlignment="Center" 
-               HorizontalAlignment="Center" 
+               HorizontalAlignment="Right" 
                HorizontalContentAlignment="Center" 
                FontSize="36" 
                FontFamily="Monotype Corsiva">
@@ -58,10 +57,10 @@
         </Label>
 
         <StackPanel Margin="2" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
-            <DataGrid x:Name="DataGridLokaty" Margin="10" AutoGenerateColumns="False"
+            <DataGrid x:Name="DataGridLokaty" Margin="5" AutoGenerateColumns="False"
                       IsReadOnly="True" ItemsSource="{Binding ViewSource.View}" 
                       FontSize="16" Background="{x:Null}" RowBackground="LightBlue"
-                      BorderThickness="2" MinRowHeight="35" MaxHeight="300" 
+                      BorderThickness="2" MinRowHeight="33" MaxHeight="300" 
                       HeadersVisibility="Column" ColumnHeaderHeight="35">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
@@ -71,7 +70,7 @@
                 </DataGrid.ColumnHeaderStyle>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nr lokaty" Width="0.7*" >
+                    <DataGridTextColumn Header="Nr lokaty" Width="0.6*" >
                         <DataGridTextColumn.Binding>
                             <MultiBinding Mode="OneWay"  Converter="{StaticResource konwersjaNrLokaty}">
                                 <Binding Path="NrLokaty"/>
@@ -79,10 +78,10 @@
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Opis" Width="2.2*" Binding="{Binding Opis}"/>
-                    <DataGridTextColumn Header="Kwota" Width="0.7*" Binding="{Binding Kwota, Converter={StaticResource konwersjaDoStringWaluta}}"/>
-                    <DataGridTextColumn Header="Data otwarcia" Width="0.9*" Binding="{Binding DataOtwarcia, StringFormat=d, ConverterCulture=pl-PL}"/>
-                    <DataGridTextColumn Header="Data zapadalności" Width="0.9*">
+                    <DataGridTextColumn Header="Opis" Width="2.3*" Binding="{Binding Opis}"/>
+                    <DataGridTextColumn Header="Kwota" Width="0.6*" Binding="{Binding Kwota, Converter={StaticResource konwersjaDoStringWaluta}}"/>
+                    <DataGridTextColumn Header="Data otwarcia" Width="0.7*" Binding="{Binding DataOtwarcia, StringFormat=d, ConverterCulture=pl-PL}"/>
+                    <DataGridTextColumn Header="Data zapadalności" Width="0.75*">
                         <DataGridTextColumn.Binding>
                             <MultiBinding Mode="OneWay"  Converter="{StaticResource konwersjaDataZamknLokaty}">
                                 <Binding Path="DataOtwarcia"/>
@@ -96,13 +95,13 @@
 
         <StackPanel Margin="2" Grid.Row="1" Grid.Column="3" VerticalAlignment="Bottom">
             <Button x:Name="ButtonZamknijLokate" 
-                    Height="35" Width="150" Margin="10"
+                    Height="35" Width="110" Margin="10"
                     FontSize="14" Content="Zamknij Lokatę"
                     HorizontalAlignment="Center" 
                     Command="{Binding PolecenieZamknijLokate}" 
                     CommandParameter="{Binding ElementName=DataGridLokaty, Path=SelectedItem}" />
             <Button x:Name="ButtonNowa" 
-                    Height="35" Width="150" Margin="10"
+                    Height="35" Width="110" Margin="10"
                     FontSize="14" Content="Nowa Lokata"
                     HorizontalAlignment="Center" 
                     Command="{Binding PolecenieNowaLokata}" />

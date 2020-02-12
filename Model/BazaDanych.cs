@@ -22,10 +22,10 @@ namespace Fundusz2.Model {
                     return obiektBazyDanych;
                 }
             }
-            set {
-                obiektBazyDanych = value;
-                //ZapiszZmianyWBazie();
-            }
+            //set {
+            //    obiektBazyDanych = value;
+            //    ZapiszZmianyWBazie();
+            //}
         }
         //public static Fundusz FunduszDB {
         //    get {

@@ -32,7 +32,7 @@ namespace Fundusz2.ViewModel {
             ViewSource.Source = ListaLokat;
             PolecenieZamknijLokate = new RelayCommand<object>(o => ZamkniecieLokaty(o), o => PolecenieZamknijCanExecute(o));
             PolecenieNowaLokata = new RelayCommand(() => NowaLokata());
-            //Messenger.Default.Register<Komunikator>(this, WykonajKomunikatZamknijLokate);
+            Messenger.Default.Register<Komunikator>(this, WykonajKomunikatZamknijLokate);
             zamykanaLokata = null;
             //
             Odswiez();
@@ -45,9 +45,9 @@ namespace Fundusz2.ViewModel {
         }
         private void ZamkniecieLokaty(object o) {
             zamykanaLokata = o as Lokata;
-            //
-            // -> okienko na wpisanie odsetek
-            //
+            var okienko = (Window)Activator.CreateInstance(Type.GetType("Fundusz2.View.OdsetkiView"));
+            okienko.ShowDialog();
+            Odswiez();
         }
         private void NowaLokata() {
             var okno = (Window)Activator.CreateInstance(Type.GetType("Fundusz2.View.NowaLokataView"));
@@ -56,26 +56,23 @@ namespace Fundusz2.ViewModel {
         }
         private void Odswiez() {
             ListaLokat.Clear();
-            BazaDanych.ObiektBazyDanych.Lokaty.OrderBy(x => x.DataOtwarcia).ToList().ForEach(x => ListaLokat.Add(x));
+            BazaDanych.ObiektBazyDanych.Lokaty.Where(x=>x.Zamknieta!=true).OrderBy(x => x.DataOtwarcia).ToList().ForEach(x => ListaLokat.Add(x));
         }
-        //private void WykonajKomunikatZamknijLokate(Komunikator komunikat)
-        //{
-        //    splacanaPozyczka.KwotaPozostala -= komunikat.Wartosc;
-        //    var operacja = new Operacja
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        Data = DateTime.Now,
-        //        Kwota = komunikat.Wartosc,
-        //        Typ = Operacja.TypOperacji.SplataPozyczki,
-        //        NrElementuOperacji = splacanaPozyczka.NumerPozyczki,
-        //        Opis = $"Spłata raty pożyczki nr {splacanaPozyczka.NumerPozyczki}"
-        //    };
-        //    BazaDanych.ObiektBazyDanych.Operacje.Add(operacja);
-        //    BazaDanych.ZapiszZmianyWBazie();
-        //    MessageBox.Show($"Pozyczka nr {splacanaPozyczka.NumerPozyczki} została pomniejszona o kwotę {komunikat.Wartosc} zł");
-        //    Messenger.Default.Send<Komunikator, MainViewModel>(new Komunikator { Typ = Operacja.TypOperacji.SplataPozyczki, Wartosc = komunikat.Wartosc });
-        //    splacanaPozyczka = null;
-        //}
+        private void WykonajKomunikatZamknijLokate(Komunikator komunikat) {
+            var operacja = new Operacja {
+                Id = Guid.NewGuid(),
+                Data = DateTime.Now,
+                Kwota = komunikat.Wartosc,
+                Typ = Operacja.TypOperacji.PrzychodZLokaty,
+                NrElementuOperacji = $"{zamykanaLokata.NrLokaty}/LOK/{zamykanaLokata.PostFix}",
+                Opis = $"Zamknięcie lokaty {zamykanaLokata.NrLokaty}/LOK/{zamykanaLokata.PostFix}. Odsetki: {komunikat.Wartosc} zł."
+            };
+            BazaDanych.ObiektBazyDanych.Operacje.Add(operacja);
+            zamykanaLokata.Zamknieta = true;
+            BazaDanych.ZapiszZmianyWBazie();
+            Messenger.Default.Send<Komunikator, MainViewModel>(new Komunikator { Typ = Operacja.TypOperacji.PrzychodZLokaty, Wartosc = komunikat.Wartosc + zamykanaLokata.Kwota});
+            zamykanaLokata = null;
+        }
         #endregion
     }
 }

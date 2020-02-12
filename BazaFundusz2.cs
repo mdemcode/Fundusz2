@@ -14,5 +14,9 @@ namespace Fundusz2 {
         public virtual DbSet<Operacja> Operacje { get; set; }
         public virtual DbSet<Pozyczka> Pozyczki { get; set; }
         public virtual DbSet<Uczestnik> Uczestnicy { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+            modelBuilder.Entity<Fundusz>().Property(p => p.OprocentowaniePozyczek).HasPrecision(8, 4);
+        }
     }
 }

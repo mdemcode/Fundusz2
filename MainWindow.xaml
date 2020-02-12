@@ -144,11 +144,11 @@
                 <z:OtworzOkno x:Name="otwUczestnicy" Parametr="UczestnicyView"/>
             </i:Interaction.Behaviors>
         </Button>
-        <Button x:Name="ButtonTest" Grid.Row="4" Grid.Column="1" Height="90" Width="240" 
-                Content="..." Background="LightSeaGreen" FontSize="20" 
+        <Button x:Name="ButtonWibor" Grid.Row="4" Grid.Column="1" Height="90" Width="240" 
+                Content="Wibor3M" Background="LightSeaGreen" FontSize="20" 
                 VerticalAlignment="Center" HorizontalAlignment="Center">
             <i:Interaction.Behaviors>
-                <z:OtworzOkno x:Name="otwTest" Parametr="OperacjeView"/>
+                <z:OtworzOkno x:Name="otwWibor" Parametr="WiborView"/>
             </i:Interaction.Behaviors>
         </Button>
         <Button x:Name="ButtonDoBazy" Grid.Row="4" Grid.Column="2" Height="90" Width="240" 

@@ -137,12 +137,14 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\NowaLokataViewModel.cs" />
     <Compile Include="ViewModel\NowaPozyczkaViewModel.cs" />
+    <Compile Include="ViewModel\OdsetkiViewModel.cs" />
     <Compile Include="ViewModel\PozyczkiViewModel.cs" />
     <Compile Include="ViewModel\SplataPozyczkiViewModel.cs" />
     <Compile Include="ViewModel\OperacjeViewModel.cs" />
     <Compile Include="ViewModel\Tools1.cs" />
     <Compile Include="ViewModel\UczestnicyViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="ViewModel\WiborViewModel.cs" />
     <Compile Include="View\LokatyView.xaml.cs">
       <DependentUpon>LokatyView.xaml</DependentUpon>
     </Compile>
@@ -151,6 +153,9 @@
     </Compile>
     <Compile Include="View\NowaPozyczkaView.xaml.cs">
       <DependentUpon>NowaPozyczkaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\OdsetkiView.xaml.cs">
+      <DependentUpon>OdsetkiView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PozyczkiView.xaml.cs">
       <DependentUpon>PozyczkiView.xaml</DependentUpon>
@@ -163,6 +168,9 @@
     </Compile>
     <Compile Include="View\UczestnicyView.xaml.cs">
       <DependentUpon>UczestnicyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WiborView.xaml.cs">
+      <DependentUpon>WiborView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Zachowania\Zachowania.cs" />
     <Page Include="MainWindow.xaml">
@@ -193,6 +201,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\OdsetkiView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\PozyczkiView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -206,6 +218,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UczestnicyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WiborView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
