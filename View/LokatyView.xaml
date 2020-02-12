@@ -78,8 +78,8 @@
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Opis" Width="2.3*" Binding="{Binding Opis}"/>
-                    <DataGridTextColumn Header="Kwota" Width="0.6*" Binding="{Binding Kwota, Converter={StaticResource konwersjaDoStringWaluta}}"/>
+                    <DataGridTextColumn Header="Opis" Width="2.4*" Binding="{Binding Opis}"/>
+                    <DataGridTextColumn Header="Kwota" Width="0.5*" Binding="{Binding Kwota, Converter={StaticResource konwersjaDoStringWaluta}}"/>
                     <DataGridTextColumn Header="Data otwarcia" Width="0.7*" Binding="{Binding DataOtwarcia, StringFormat=d, ConverterCulture=pl-PL}"/>
                     <DataGridTextColumn Header="Data zapadalności" Width="0.75*">
                         <DataGridTextColumn.Binding>

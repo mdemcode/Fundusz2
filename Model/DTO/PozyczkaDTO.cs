@@ -27,6 +27,13 @@ namespace Fundusz2.Model.DTO {
                 BazaDanych.ZapiszZmianyWBazie();
             }
         }
+        public bool Splacona {
+            get => pozyczkaDB.Splacona;
+            set {
+                pozyczkaDB.Splacona = value;
+                BazaDanych.ZapiszZmianyWBazie();
+            }
+        }
         #endregion
     }
 }

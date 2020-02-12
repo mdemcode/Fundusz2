@@ -55,11 +55,13 @@ namespace Fundusz2.ViewModel {
         }
         private void Odswiez() {
             ListaPozyczek.Clear();
-            BazaDanych.ObiektBazyDanych.Pozyczki.Include("Pozyczkobiorca").OrderByDescending(x=>x.PostFix).ThenByDescending(x => x.NrPozyczki).ToList()
-                                      .ForEach(x => ListaPozyczek.Add(new PozyczkaDTO(x)));
+            BazaDanych.ObiektBazyDanych.Pozyczki.Include("Pozyczkobiorca").Where(p=>p.Splacona!=true)
+                .OrderByDescending(x=>x.PostFix).ThenByDescending(x => x.NrPozyczki).ToList()
+                .ForEach(x => ListaPozyczek.Add(new PozyczkaDTO(x)));
         }
         private void WykonajKomunikatSplata(Komunikator komunikat) {
             splacanaPozyczka.KwotaPozostala -= komunikat.Wartosc;
+            if (splacanaPozyczka.KwotaPozostala <= 0) splacanaPozyczka.Splacona = true;
             var operacja = new Operacja {
                 Id = Guid.NewGuid(),
                 Data = DateTime.Now,
@@ -73,6 +75,7 @@ namespace Fundusz2.ViewModel {
             MessageBox.Show($"Pozyczka nr {splacanaPozyczka.NumerPozyczki} została pomniejszona o kwotę {komunikat.Wartosc} zł");
             Messenger.Default.Send<Komunikator, MainViewModel>(new Komunikator { Typ = Operacja.TypOperacji.SplataPozyczki, Wartosc = komunikat.Wartosc });
             splacanaPozyczka = null;
+            Odswiez();
         }
         #endregion
     }
