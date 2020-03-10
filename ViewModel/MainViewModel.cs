@@ -203,9 +203,6 @@ namespace Fundusz2.ViewModel {
             MessageBox.Show("...ju¿");
         }
         private void TempCommand () {
-            var data = BazaDanych.ObiektBazyDanych.Pozyczki.First().DataWyplaty;
-            var nowaData = data.AddDays(35);
-            MessageBox.Show(nowaData.ToShortDateString());
         }
         #endregion
     }
